@@ -10,12 +10,27 @@ namespace Platform
 
         [Header("Runtime")]
         [SerializeField] private PlatformData currentData;
+        [SerializeField] private float speedMultiplier = 1f;
+        [SerializeField] private float destroyX = -20f;
+
+        public static float WorldSpeed = 5f;
+        
 
         public PlatformData CurrentData => currentData;
         public float Width => currentData != null ? currentData.width : 0f;
 
         public float LeftEdge => transform.position.x - (Width * 0.5f);
         public float RightEdge => transform.position.x + (Width * 0.5f);
+
+        private void Update()
+        {
+            transform.position += Vector3.left * (WorldSpeed * speedMultiplier * Time.deltaTime);
+
+            if (transform.position.x < destroyX)
+            {
+                Destroy(gameObject);
+            }
+        }
 
         public void Initialize(PlatformData data, Vector3 worldPosition)
         {
