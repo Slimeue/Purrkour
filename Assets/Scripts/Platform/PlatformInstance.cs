@@ -48,17 +48,6 @@ namespace Platform
                 scale.x = currentData.width;
                 spriteRenderer.transform.localScale = scale;
             }
-
-            // if (boxCollider != null)
-            // {
-            //     Vector2 size = boxCollider.size;
-            //     size.x = currentData.width;
-            //     boxCollider.size = size;
-            //
-            //     Vector2 offset = boxCollider.offset;
-            //     offset.x = 0f;
-            //     boxCollider.offset = offset;
-            // }
         }
 
         public bool IsOffScreenLeft(float despawnX)
