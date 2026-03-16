@@ -24,6 +24,8 @@ namespace Platform
 
         private void Update()
         {
+            
+            //TODO: Will change this to a more centralized system
             transform.position += Vector3.left * (WorldSpeed * speedMultiplier * Time.deltaTime);
 
             if (transform.position.x < destroyX)
