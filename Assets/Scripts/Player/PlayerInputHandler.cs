@@ -38,28 +38,15 @@ namespace Player
             _inputActions.Dispose();
         }
 
-        public void OnMove(InputAction.CallbackContext context)
-        {
-            _moveInput = context.ReadValue<Vector2>();
-        }
+        public void OnMove(InputAction.CallbackContext context) { }
 
-        public void OnLook(InputAction.CallbackContext context)
-        {
-        }
+        public void OnLook(InputAction.CallbackContext context) { }
 
-        public void OnAttack(InputAction.CallbackContext context)
-        {
-            if (context.performed)
-                _attackPressed = true;
-        }
+        public void OnAttack(InputAction.CallbackContext context) { }
 
-        public void OnInteract(InputAction.CallbackContext context)
-        {
-        }
+        public void OnInteract(InputAction.CallbackContext context) { }
 
-        public void OnCrouch(InputAction.CallbackContext context)
-        {
-        }
+        public void OnCrouch(InputAction.CallbackContext context) { }
 
         public void OnJump(InputAction.CallbackContext context)
         {
@@ -75,26 +62,15 @@ namespace Player
             }
         }
 
-        public void OnPrevious(InputAction.CallbackContext context)
-        {
-        }
+        public void OnPrevious(InputAction.CallbackContext context) { }
 
-        public void OnNext(InputAction.CallbackContext context)
-        {
-        }
+        public void OnNext(InputAction.CallbackContext context) { }
 
-        public void OnSprint(InputAction.CallbackContext context)
-        {
-        }
+        public void OnSprint(InputAction.CallbackContext context) { }
 
         public void ConsumeJumpPressed()
         {
             _jumpPressed = false;
-        }
-
-        public void ConsumeAttackPressed()
-        {
-            _attackPressed = false;
         }
     }
 }
