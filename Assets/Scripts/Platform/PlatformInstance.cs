@@ -32,7 +32,7 @@ namespace Platform
             transform.position += Vector3.left * (WorldSpeed * speedMultiplier * Time.deltaTime);
         }
 
-        public void Initialize(PlatformData data, PlatformPieceData pieceData, Vector3 worldPosition)
+        public void Initialize(PlatformData data, PlatformPieceData pieceData, Vector3 worldPosition, bool isFirst = false)
         {
             if (data == null)
             {
@@ -52,7 +52,7 @@ namespace Platform
             transform.position = worldPosition;
 
             ApplyVisuals();
-            ApplySize();
+            ApplySize(isFirst);
         }
 
         private void ApplyVisuals()
@@ -63,12 +63,12 @@ namespace Platform
             }
         }
 
-        private void ApplySize()
+        private void ApplySize(bool isFirst)
         {
             if (spriteRenderer != null)
             {
                 Vector3 scale = spriteRenderer.transform.localScale;
-                scale.x = currentPieceData.width;
+                scale.x = isFirst ? 20f : currentPieceData.width;
                 scale.y = currentPieceData.height;
                 spriteRenderer.transform.localScale = scale;
             }

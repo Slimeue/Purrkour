@@ -116,7 +116,7 @@ namespace Core
             float targetY = isFirst ? startY : GetNextPlatformY(chosenData);
 
             float sectionStartX = isFirst
-                ? GetCameraLeftEdgeX() - 2f
+                ? GetCameraLeftEdgeX()
                 : GetRightmostProgressionEdge() + sectionGap;
 
             float currentLeftEdgeX = sectionStartX;
@@ -135,7 +135,7 @@ namespace Core
                     continue;
                 }
 
-                float centerX = currentLeftEdgeX + (piece.width * 0.5f);
+                float centerX = isFirst ? 0f : currentLeftEdgeX + (piece.width * 0.5f);
 
                 float pieceY = targetY;
                 if (piece.isCeiling)
@@ -154,7 +154,7 @@ namespace Core
                     continue;
                 }
 
-                newPlatformInstance.Initialize(chosenData, piece, pieceSpawnPosition);
+                newPlatformInstance.Initialize(chosenData, piece, pieceSpawnPosition, isFirst);
                 _activePlatforms.Add(newPlatformInstance);
 
                 if (piece.affectsSectionEnd)
