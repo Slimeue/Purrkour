@@ -18,12 +18,13 @@ MonoBehaviour:
     sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
     apartValue: 0
     verticalOffset: 0
-    height: 5
+    height: 10
     width: 10
     isCeiling: 0
+    affectsSectionEnd: 1
   minHeightOffset: -1
-  maxHeightOffset: 7
-  spawnWeight: 1
+  maxHeightOffset: 1
+  spawnWeight: 5
   allowEarlyGame: 1
   allowMidGame: 1
   allowLateGame: 1
