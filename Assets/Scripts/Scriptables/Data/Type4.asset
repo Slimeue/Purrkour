@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbfeb171ee7386e4a98bf90af0be3457, type: 3}
-  m_Name: Type1
+  m_Name: Type4
   m_EditorClassIdentifier: Assembly-CSharp::PlatformData
   id: Type1
   pieces:
@@ -19,9 +19,9 @@ MonoBehaviour:
     apartValue: 0
     verticalOffset: 0
     height: 5
-    width: 7
+    width: 4
     isCeiling: 0
-  minHeightOffset: -5
+  minHeightOffset: -1
   maxHeightOffset: 4
   spawnWeight: 1
   allowEarlyGame: 1

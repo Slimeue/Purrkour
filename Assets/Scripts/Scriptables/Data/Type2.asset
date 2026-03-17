@@ -13,13 +13,25 @@ MonoBehaviour:
   m_Name: Type2
   m_EditorClassIdentifier: Assembly-CSharp::PlatformData
   id: Type1
-  prefab: {fileID: 5762830585220316690, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
-  sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  width: 10
-  minHeightOffset: -1
-  maxHeightOffset: 4.48
+  pieces:
+  - prefab: {fileID: 4553448511446149986, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
+    sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+    apartValue: 5
+    verticalOffset: 0
+    height: 5
+    width: 5
+    isCeiling: 0
+  - prefab: {fileID: 4553448511446149986, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
+    sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+    apartValue: 0
+    verticalOffset: 15
+    height: 20
+    width: 5
+    isCeiling: 1
+  minHeightOffset: 0
+  maxHeightOffset: 3
   spawnWeight: 1
-  allowEarlyGame: 1
+  allowEarlyGame: 0
   allowMidGame: 1
   allowLateGame: 1
   canSpawnFish: 1

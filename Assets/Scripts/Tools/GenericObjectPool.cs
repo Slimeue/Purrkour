@@ -14,7 +14,6 @@ namespace Tools
         }
 
 
-
         //one pool per prefab (key = gameobjectPrefab.GetInstanceID())
         private static readonly Dictionary<int, PoolData> _pools = new();
 
@@ -32,7 +31,8 @@ namespace Tools
             Action<T> onDestroy = null
         )
         {
-            var pd = GetOrCreatePool(prefab, defaultCapacity, maxSize, collectionCheck, onGet, onRelease, onDestroy, parentOverride);
+            var pd = GetOrCreatePool(prefab, defaultCapacity, maxSize, collectionCheck, onGet, onRelease, onDestroy,
+                parentOverride);
             var obj = pd.Pool.Get();
 
             if (parentOverride && obj.transform.parent != parentOverride)
@@ -68,7 +68,8 @@ namespace Tools
             Action<T> onDestroy = null
         )
         {
-            var pd = GetOrCreatePool(prefab, defaultCapacity, maxSize, collectionCheck, onGet, onRelease, onDestroy, parent);
+            var pd = GetOrCreatePool(prefab, defaultCapacity, maxSize, collectionCheck, onGet, onRelease, onDestroy,
+                parent);
             // Use ListPool to avoid GC
             var tmp = ListPool<T>.Get();
             try
@@ -76,10 +77,10 @@ namespace Tools
                 tmp.Capacity = Mathf.Max(tmp.Capacity, count);
 
                 for (int i = 0; i < count; i++)
-                    tmp.Add(pd.Pool.Get());      // forces creation until we have 'count' actives
+                    tmp.Add(pd.Pool.Get()); // forces creation until we have 'count' actives
 
                 for (int i = 0; i < tmp.Count; i++)
-                    pd.Pool.Release(tmp[i]);     // now we have 'count' inactives in the pool
+                    pd.Pool.Release(tmp[i]); // now we have 'count' inactives in the pool
             }
             finally
             {
@@ -170,5 +171,4 @@ namespace Tools
             return pd;
         }
     }
-
 }

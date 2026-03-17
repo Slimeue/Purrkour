@@ -119,6 +119,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &28275434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 28275436}
+  - component: {fileID: 28275435}
+  m_Layer: 0
+  m_Name: DebuggerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &28275435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28275434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497c5261b6214f0e8a965fb908b4f9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Managers.DebuggerManager
+  showLogs: 1
+--- !u!4 &28275436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28275434}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &176062333
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,6 +175,10 @@ PrefabInstance:
     - target: {fileID: 5762830585220316690, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
       propertyPath: m_Name
       value: BasePlatform (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762830585220316690, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8018100396389980177, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
       propertyPath: m_LocalScale.x
@@ -258,6 +307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasePlatform (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5762830585220316690, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8018100396389980177, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
       propertyPath: m_LocalScale.x
       value: 10
@@ -327,6 +380,10 @@ PrefabInstance:
     - target: {fileID: 5762830585220316690, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
       propertyPath: m_Name
       value: BasePlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762830585220316690, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8018100396389980177, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
       propertyPath: m_LocalScale.x
@@ -619,6 +676,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasePlatform (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5762830585220316690, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8018100396389980177, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
       propertyPath: m_LocalScale.x
       value: 10
@@ -795,6 +856,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasePlatform (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5762830585220316690, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8018100396389980177, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
       propertyPath: m_LocalScale.x
       value: 10
@@ -900,6 +965,10 @@ PrefabInstance:
     - target: {fileID: 5762830585220316690, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
       propertyPath: m_Name
       value: BasePlatform (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762830585220316690, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8018100396389980177, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
       propertyPath: m_LocalScale.x
@@ -1074,6 +1143,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f486d032fa2788941a5384aba5bc660e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.PlatformGenerator
+  platformDatas:
+  - {fileID: 11400000, guid: c655ff3946a66a9498d194a2d6a73d20, type: 2}
+  - {fileID: 11400000, guid: 1a5b0e3440009654c96a8d8bffa153c9, type: 2}
+  - {fileID: 11400000, guid: dc7d4b601937de647a17e7c4db52c37a, type: 2}
+  - {fileID: 11400000, guid: 460a39d7c441bd74ea509f4a1e39e6c3, type: 2}
+  initialSpawnCount: 8
+  startY: -7
+  minGap: 1
+  maxGap: 5
+  maxStepUp: 5
+  maxStepDown: 7
+  minY: -9
+  maxY: -5
   generateAheadDistance: 25
   despawnBehindDistance: 20
   platformParent: {fileID: 1010063387}
@@ -1210,3 +1292,4 @@ SceneRoots:
   - {fileID: 1010063387}
   - {fileID: 226258191}
   - {fileID: 1708650617}
+  - {fileID: 28275436}
