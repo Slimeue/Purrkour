@@ -24,4 +24,13 @@
         Arc,
         RichLine
     } 
+    
+    public class SaveData
+    {
+        public int totalPoints;
+        public int totalFishCaught;
+        public int bestCatchPoints;
+        public int bestCatchRarity;
+        public int bestCatchSize;
+    }
 }

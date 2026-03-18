@@ -19,12 +19,13 @@ namespace Fish
 
         private Camera _mainCamera;
 
-        public void Initialize(Vector3 worldPosition, PlatformInstance platformRef)
+        public void Initialize(FishData data, Vector3 worldPosition, PlatformInstance platformRef)
         {
+            fishData = data;
             transform.position = worldPosition;
             platform = platformRef;
             gameObject.SetActive(true);
-
+            
             if (_mainCamera == null)
                 _mainCamera = Camera.main;
         }
@@ -45,6 +46,17 @@ namespace Fish
                 GenericObjectPool<FishInstance>.Release(this);
             }
         }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.CompareTag("Player")) return;
+            
+            PointsManager.Instance.AddPoints(fishData, other.transform);
+            GenericObjectPool<FishInstance>.Release(this);
+        }
+        
+        
+
 
         private void OnDrawGizmos()
         {

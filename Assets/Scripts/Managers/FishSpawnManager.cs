@@ -223,7 +223,7 @@ namespace Managers
             if (fishInstance == null)
                 return;
 
-            fishInstance.Initialize(spawnPosition, platform);
+            fishInstance.Initialize(fishData, spawnPosition, platform);
         }
 
         private List<float> BuildAvailableSlots(PlatformInstance platform)
