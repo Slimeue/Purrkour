@@ -19,12 +19,12 @@ MonoBehaviour:
     apartValue: 0
     verticalOffset: 0
     height: 10
-    width: 7
+    width: 50
     isCeiling: 0
     affectsSectionEnd: 1
   minHeightOffset: -1
   maxHeightOffset: 1
-  spawnWeight: 5
+  spawnWeight: 10
   allowEarlyGame: 1
   allowMidGame: 1
   allowLateGame: 1

@@ -15,7 +15,6 @@ namespace Player
         public Vector2 MoveInput => _moveInput;
         public bool JumpPressed => _jumpPressed;
         public bool JumpHeld => _jumpHeld;
-        public bool AttackPressed => _attackPressed;
 
         private void Awake()
         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Fish;
 using Managers;
 using Platform;
 using Tools;
@@ -104,7 +105,7 @@ namespace Core
 
         private void SpawnNextPlatformSection(bool isFirst)
         {
-            PlatformData chosenData = GetWeightRandomPlatformData();
+            PlatformData chosenData = isFirst ? platformDatas[0] : GetWeightRandomPlatformData();
 
             if (!IsValidPlatformData(chosenData))
             {
@@ -154,7 +155,7 @@ namespace Core
                     continue;
                 }
 
-                newPlatformInstance.Initialize(chosenData, piece, pieceSpawnPosition, isFirst);
+                newPlatformInstance.Initialize(chosenData, piece, pieceSpawnPosition);
                 _activePlatforms.Add(newPlatformInstance);
 
                 if (piece.affectsSectionEnd)
@@ -165,6 +166,7 @@ namespace Core
                 if (!piece.isCeiling)
                 {
                     currentLeftEdgeX = newPlatformInstance.RightEdge;
+                    FishSpawnManager.Instance.HandleSectionSpawn(newPlatformInstance);
                 }
             }
 
