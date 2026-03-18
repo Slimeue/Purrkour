@@ -105,6 +105,8 @@ namespace Managers
 
             CurrentPoints = Mathf.Max(CurrentPoints - amount, 0f);
             RefreshPointsText();
+            OnPointsLose?.Invoke(CurrentPoints);
+            OnPointsChanged?.Invoke(CurrentPoints);
 
             DebuggerManager.Instance.Log(
                 $"Removed {amount} points. Total: {CurrentPoints}",
