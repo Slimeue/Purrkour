@@ -1685,8 +1685,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1999137651}
+  - component: {fileID: 1999137652}
   m_Layer: 5
-  m_Name: Main
+  m_Name: UIPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1712,6 +1713,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1999137652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999137650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d40fe5e16047818b3d3a3e9739c791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.UIPoints
+  pointsText: {fileID: 718550657}
 --- !u!1 &2052814707
 GameObject:
   m_ObjectHideFlags: 0

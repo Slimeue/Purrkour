@@ -19,6 +19,7 @@ namespace Managers
             RichLine
         }
 
+        
         [Header("Fish Data")]
         [SerializeField] private List<FishData> fishDataArray;
 

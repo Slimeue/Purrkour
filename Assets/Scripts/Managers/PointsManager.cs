@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Scriptables;
 using TMPro;
 using Tools;
@@ -20,6 +21,16 @@ namespace Managers
         [Header("Floating Text")]
         [SerializeField] private float _floatingTextDuration = 1f;
         [SerializeField] private float _floatingMoveUpDistance = 80f;
+        
+        //Actions
+        public delegate void PointsChanged(float points);
+
+        public delegate void PointsGain(float points);
+        public delegate void PointsLose(float points);
+        public event PointsChanged OnPointsChanged;
+        public event PointsGain OnPointsGain;
+        public event PointsLose OnPointsLose;
+        
 
         private Camera _mainCamera;
         private Canvas _parentCanvas;
@@ -44,6 +55,7 @@ namespace Managers
         private void Start()
         {
             RefreshPointsText();
+            OnPointsChanged?.Invoke(CurrentPoints);
         }
 
         public void AddPoints(FishData data, Transform worldTransform)
@@ -64,6 +76,8 @@ namespace Managers
 
             CurrentPoints += pointsToAdd;
             RefreshPointsText();
+            OnPointsGain?.Invoke(pointsToAdd);
+            OnPointsChanged?.Invoke(CurrentPoints);
             SpawnFloatingText($"+{pointsToAdd:0}", worldTransform.position);
 
             DebuggerManager.Instance.Log(
