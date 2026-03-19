@@ -16,6 +16,12 @@
         Legendary
     }
     
+    public enum FishType
+    {
+        Normal,
+        Obstacle,
+    }
+    
     public enum FishSectionPattern
     {
         None,

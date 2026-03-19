@@ -31,7 +31,7 @@ namespace UI
 
         private void ChangePoints(float amount)
         {
-            pointsText.text = $"Fish: {amount.ToString(CultureInfo.InvariantCulture)}";
+            pointsText.text = $"{amount.ToString(CultureInfo.InvariantCulture)}";
         }
         
     }

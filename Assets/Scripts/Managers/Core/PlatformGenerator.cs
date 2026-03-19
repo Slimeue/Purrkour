@@ -32,6 +32,8 @@ namespace Core
 
         private readonly List<PlatformInstance> _activePlatforms = new();
 
+        private PlatformInstance _previousPlatform;
+
         private Camera _mainCamera;
         private float _lastPlatformY;
 
@@ -166,8 +168,10 @@ namespace Core
                 if (!piece.isCeiling)
                 {
                     currentLeftEdgeX = newPlatformInstance.RightEdge;
-                    FishSpawnManager.Instance.HandleSectionSpawn(newPlatformInstance);
+                    FishSpawnManager.Instance.HandleSectionSpawn(newPlatformInstance, _previousPlatform);
+                    _previousPlatform = newPlatformInstance;
                 }
+                
             }
 
             _lastPlatformY = targetY;
