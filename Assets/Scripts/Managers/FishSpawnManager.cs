@@ -85,21 +85,24 @@ namespace Managers
             _sectionsSinceLastFish = 0;
         }
 
-        public void HandleSectionSpawn(PlatformInstance nextPlatform, PlatformInstance previousPlatform)
+        public void HandleSectionSpawn(SpawnSectionContext context, PlatformInstance previousPlatform = null)
         {
-            if (nextPlatform == null || !ShouldSpawnFish())
+            if (context == null || context.Platform == null)
                 return;
 
-            SpawnFish(nextPlatform, previousPlatform);
+            if (!ShouldSpawnFish())
+                return;
+
+            SpawnFish(context, previousPlatform);
         }
 
-        public void SpawnFish(PlatformInstance nextPlatform, PlatformInstance previousPlatform = null)
+        public void SpawnFish(SpawnSectionContext context, PlatformInstance previousPlatform = null)
         {
-            if (nextPlatform == null)
+            if (context == null || context.Platform == null)
                 return;
 
-            List<float> availableSlots = BuildAvailableSlots(nextPlatform);
-            if (availableSlots.Count == 0)
+            List<int> freeSlotIndices = context.GetFreeSlotIndices();
+            if (freeSlotIndices.Count == 0)
                 return;
 
             FishData fishData = GetWeightedRandomFishData();
@@ -111,29 +114,26 @@ namespace Managers
             switch (pattern)
             {
                 case FishSpawnPattern.Single:
-                    SpawnSingle(nextPlatform, fishData, availableSlots);
+                    SpawnSingle(context, fishData);
                     break;
 
                 case FishSpawnPattern.Line:
-                    SpawnLine(nextPlatform, fishData, availableSlots);
+                    SpawnLine(context, fishData);
                     break;
 
                 case FishSpawnPattern.Arc:
-                    SpawnArc(nextPlatform, fishData, availableSlots);
+                    SpawnArc(context, fishData);
                     break;
 
                 case FishSpawnPattern.RichLine:
-                    SpawnRichLine(nextPlatform, fishData, availableSlots);
+                    SpawnRichLine(context, fishData);
                     break;
+
                 case FishSpawnPattern.ArcBetweenPlatforms:
                     if (previousPlatform != null)
-                    {
-                        SpawnFishArcBetweenPlatforms(previousPlatform, nextPlatform);
-                    }
+                        SpawnFishArcBetweenPlatforms(previousPlatform, context.Platform);
                     else
-                    {
-                        SpawnArc(nextPlatform, fishData, availableSlots);
-                    }
+                        SpawnArc(context, fishData);
                     break;
             }
         }
@@ -161,25 +161,13 @@ namespace Managers
             float rightTopY = rightPlatform.transform.position.y + rightPlatform.Height * 0.5f;
             float baseY = Mathf.Max(leftTopY, rightTopY) + fishHeightOffset;
 
-            if (count == 1)
-            {
-                float centerX = (availableSlots[0] + availableSlots[^1]) * 0.5f;
-                SpawnFishInstance(
-                    fishData,
-                    new Vector3(centerX, baseY + arcHeight, leftPlatform.transform.position.z),
-                    leftPlatform
-                );
-                return;
-            }
-
             int maxStart = Mathf.Max(0, availableSlots.Count - count);
             int startIndex = Random.Range(0, maxStart + 1);
 
             for (int i = 0; i < count; i++)
             {
                 float spawnX = availableSlots[startIndex + i];
-
-                float t = Mathf.Lerp(-1f, 1f, i / (float)(count - 1));
+                float t = count == 1 ? 0f : Mathf.Lerp(-1f, 1f, i / (float)(count - 1));
                 float yOffset = arcHeight * (1f - (t * t));
 
                 Vector3 spawnPosition = new Vector3(
@@ -192,80 +180,115 @@ namespace Managers
             }
         }
 
-        private void SpawnSingle(PlatformInstance platform, FishData fishData, List<float> availableSlots)
+        private void SpawnSingle(SpawnSectionContext context, FishData fishData)
         {
-            if (availableSlots.Count == 0)
+            List<int> freeSlots = context.GetFreeSlotIndices();
+            if (freeSlots.Count == 0)
                 return;
 
-            int randomSlotIndex = Random.Range(0, availableSlots.Count);
-            float spawnX = availableSlots[randomSlotIndex];
+            int chosenIndex = freeSlots[Random.Range(0, freeSlots.Count)];
+            context.ReserveSlots(chosenIndex, 1, 0);
 
-            SpawnFishInstance(
-                fishData,
-                BuildSpawnPosition(platform, spawnX, 0f),
-                platform
-            );
+            float spawnX = context.SlotXPositions[chosenIndex];
+            SpawnFishInstance(fishData, BuildSpawnPosition(context.Platform, spawnX, 0f), context.Platform);
         }
 
-        private void SpawnLine(PlatformInstance platform, FishData fishData, List<float> availableSlots)
+        private void SpawnLine(SpawnSectionContext context, FishData fishData)
         {
-            int count = GetLineCount(availableSlots.Count);
+            int count = GetLineCount(context.GetFreeSlotIndices().Count);
             if (count <= 0)
                 return;
 
-            SpawnContiguousLine(platform, fishData, availableSlots, count, false);
+            SpawnContiguousLine(context, fishData, count, false);
         }
 
-        private void SpawnArc(PlatformInstance platform, FishData fishData, List<float> availableSlots)
+        private void SpawnArc(SpawnSectionContext context, FishData fishData)
         {
-            int count = GetLineCount(availableSlots.Count);
+            int count = GetLineCount(context.GetFreeSlotIndices().Count);
             if (count <= 0)
                 return;
 
-            SpawnContiguousLine(platform, fishData, availableSlots, count, true);
+            SpawnContiguousLine(context, fishData, count, true);
         }
 
-        private void SpawnRichLine(PlatformInstance platform, FishData fishData, List<float> availableSlots)
+        private void SpawnRichLine(SpawnSectionContext context, FishData fishData)
         {
-            int count = Mathf.Min(Random.Range(minRichLineCount, maxRichLineCount + 1), availableSlots.Count);
+            int count = Mathf.Min(Random.Range(minRichLineCount, maxRichLineCount + 1), context.GetFreeSlotIndices().Count);
             if (count <= 0)
                 return;
 
-            SpawnContiguousLine(platform, fishData, availableSlots, count, false);
+            SpawnContiguousLine(context, fishData, count, false);
         }
 
-        private void SpawnContiguousLine(
-            PlatformInstance platform,
-            FishData fishData,
-            List<float> availableSlots,
-            int count,
-            bool useArc
-        )
+        private void SpawnContiguousLine(SpawnSectionContext context, FishData fishData, int count, bool useArc)
         {
-            if (availableSlots.Count == 0 || count <= 0)
+            List<int> freeSlots = context.GetFreeSlotIndices();
+            if (freeSlots.Count == 0 || count <= 0)
                 return;
 
-            availableSlots.Sort();
-            int maxStart = Mathf.Max(0, availableSlots.Count - count);
-            int startIndex = Random.Range(0, maxStart + 1);
+            freeSlots.Sort();
+            List<int> contiguous = FindContiguousFreeRun(freeSlots, count);
 
-            for (int i = 0; i < count; i++)
+            if (contiguous == null || contiguous.Count == 0)
+                return;
+
+            for (int i = 0; i < contiguous.Count; i++)
             {
-                float spawnX = availableSlots[startIndex + i];
+                int slotIndex = contiguous[i];
+                context.ReserveSlots(slotIndex, 1, 0);
+
+                float spawnX = context.SlotXPositions[slotIndex];
                 float yOffset = 0f;
 
-                if (useArc && count > 1)
+                if (useArc && contiguous.Count > 1)
                 {
-                    float t = Mathf.Lerp(-1f, 1f, i / (float)(count - 1));
+                    float t = Mathf.Lerp(-1f, 1f, i / (float)(contiguous.Count - 1));
                     yOffset = arcHeight * (1f - (t * t));
                 }
 
                 SpawnFishInstance(
                     fishData,
-                    BuildSpawnPosition(platform, spawnX, yOffset),
-                    platform
+                    BuildSpawnPosition(context.Platform, spawnX, yOffset),
+                    context.Platform
                 );
             }
+        }
+
+        private List<int> FindContiguousFreeRun(List<int> sortedFreeSlots, int requiredCount)
+        {
+            if (sortedFreeSlots == null || sortedFreeSlots.Count == 0 || requiredCount <= 0)
+                return null;
+
+            List<List<int>> runs = new();
+            List<int> currentRun = new() { sortedFreeSlots[0] };
+
+            for (int i = 1; i < sortedFreeSlots.Count; i++)
+            {
+                if (sortedFreeSlots[i] == sortedFreeSlots[i - 1] + 1)
+                {
+                    currentRun.Add(sortedFreeSlots[i]);
+                }
+                else
+                {
+                    if (currentRun.Count >= requiredCount)
+                        runs.Add(new List<int>(currentRun));
+
+                    currentRun.Clear();
+                    currentRun.Add(sortedFreeSlots[i]);
+                }
+            }
+
+            if (currentRun.Count >= requiredCount)
+                runs.Add(new List<int>(currentRun));
+
+            if (runs.Count == 0)
+                return null;
+
+            List<int> chosenRun = runs[Random.Range(0, runs.Count)];
+            int maxStart = chosenRun.Count - requiredCount;
+            int start = Random.Range(0, maxStart + 1);
+
+            return chosenRun.GetRange(start, requiredCount);
         }
 
         private Vector3 BuildSpawnPosition(PlatformInstance platform, float spawnX, float extraY)
@@ -286,9 +309,12 @@ namespace Managers
             fishInstance.Initialize(fishData, spawnPosition, platform);
         }
 
-        private List<float> BuildAvailableSlots(PlatformInstance platform)
+        public List<float> BuildSlotsForPlatform(PlatformInstance platform)
         {
             List<float> slots = new();
+
+            if (platform == null)
+                return slots;
 
             float left = platform.LeftEdge + gapEdgePadding;
             float right = platform.RightEdge - gapEdgePadding;
@@ -329,9 +355,13 @@ namespace Managers
 
         private FishSpawnPattern GetRandomPattern()
         {
-            float totalWeight = singlePatternWeight + 
-                                linePatternWeight + arcPatternWeight + 
-                                richLinePatternWeight + arcBetweenPlatformsWeight;
+            float totalWeight =
+                singlePatternWeight +
+                linePatternWeight +
+                arcPatternWeight +
+                richLinePatternWeight +
+                arcBetweenPlatformsWeight;
+
             if (totalWeight <= 0f)
                 return FishSpawnPattern.Single;
 
@@ -339,20 +369,16 @@ namespace Managers
             float cumulative = 0f;
 
             cumulative += singlePatternWeight;
-            if (roll <= cumulative)
-                return FishSpawnPattern.Single;
+            if (roll <= cumulative) return FishSpawnPattern.Single;
 
             cumulative += linePatternWeight;
-            if (roll <= cumulative)
-                return FishSpawnPattern.Line;
+            if (roll <= cumulative) return FishSpawnPattern.Line;
 
             cumulative += arcPatternWeight;
-            if (roll <= cumulative)
-                return FishSpawnPattern.Arc;
-            
+            if (roll <= cumulative) return FishSpawnPattern.Arc;
+
             cumulative += arcBetweenPlatformsWeight;
-            if (roll <= cumulative)                
-                return FishSpawnPattern.ArcBetweenPlatforms;
+            if (roll <= cumulative) return FishSpawnPattern.ArcBetweenPlatforms;
 
             return FishSpawnPattern.RichLine;
         }

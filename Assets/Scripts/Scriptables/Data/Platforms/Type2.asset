@@ -19,7 +19,7 @@ MonoBehaviour:
     apartValue: 5
     verticalOffset: 0
     height: 10
-    width: 5
+    width: 7
     isCeiling: 0
     affectsSectionEnd: 1
   - prefab: {fileID: 4553448511446149986, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
@@ -37,4 +37,4 @@ MonoBehaviour:
   allowMidGame: 1
   allowLateGame: 1
   canSpawnFish: 1
-  canSpawnObstacle: 1
+  canSpawnObstacle: 0

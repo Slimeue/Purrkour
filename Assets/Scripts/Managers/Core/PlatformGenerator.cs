@@ -168,7 +168,7 @@ namespace Core
                 if (!piece.isCeiling)
                 {
                     currentLeftEdgeX = newPlatformInstance.RightEdge;
-                    FishSpawnManager.Instance.HandleSectionSpawn(newPlatformInstance, _previousPlatform);
+                    SpawnManager.Instance.HandleSectionSpawn(newPlatformInstance, _previousPlatform);
                     _previousPlatform = newPlatformInstance;
                 }
                 

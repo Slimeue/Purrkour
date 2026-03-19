@@ -29,4 +29,4 @@ MonoBehaviour:
   allowMidGame: 1
   allowLateGame: 1
   canSpawnFish: 1
-  canSpawnObstacle: 1
+  canSpawnObstacle: 0
