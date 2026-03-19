@@ -236,14 +236,14 @@ MonoBehaviour:
   fishGap: 2
   fishHeightOffset: 1
   fishParent: {fileID: 0}
-  minSectionsBetweenFish: 2
+  minSectionsBetweenFish: 1
   maxSectionsBetweenFish: 3
   fishSectionChance: 0.75
   singlePatternWeight: 0
   linePatternWeight: 30
   arcPatternWeight: 25
   richLinePatternWeight: 15
-  arcBetweenPlatformsWeight: 40
+  arcBetweenPlatformsWeight: 30
   arcHeight: 4
   minLineCount: 3
   maxLineCount: 6
@@ -254,6 +254,8 @@ MonoBehaviour:
   leftPlatformEdgePadding: 2
   minGapArcCount: 3
   maxGapArcCount: 6
+  debugDrawSlots: 1
+  debugSlotRadius: 0.15
 --- !u!4 &117656311
 Transform:
   m_ObjectHideFlags: 0
