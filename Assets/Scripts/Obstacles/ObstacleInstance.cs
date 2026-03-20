@@ -1,5 +1,9 @@
-﻿using Scriptables;
+﻿using System;
+using Interface;
+using Managers;
+using Scriptables;
 using Platform;
+using Player;
 using Tools;
 using UnityEngine;
 
@@ -27,7 +31,10 @@ namespace Obstacles
 
         private void Update()
         {
-            transform.position += Vector3.left * (PlatformInstance.WorldSpeed * speedMultiplier * Time.deltaTime);
+            if (WorldScrollManager.Instance == null)
+                return;
+            
+            WorldScrollManager.Instance.MoveObject(transform);
 
             if (_mainCamera == null)
                 return;
@@ -39,6 +46,17 @@ namespace Obstacles
             {
                 GenericObjectPool<ObstacleInstance>.Release(this);
             }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.CompareTag("Player")) return;
+
+            var killable = other.GetComponentInParent<IKillable>();
+
+            killable?.TakeDamage(currentData.damage);
+
+            GenericObjectPool<ObstacleInstance>.Release(this);
         }
     }
 }

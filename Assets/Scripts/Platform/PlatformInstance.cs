@@ -31,9 +31,10 @@ namespace Platform
 
         private void Update()
         {
-            // Temporary local movement approach for prototyping.
-            // Later you can move this to a centralized scroller manager.
-            transform.position += Vector3.left * (WorldSpeed * speedMultiplier * Time.deltaTime);
+            if (WorldScrollManager.Instance == null)
+                return;
+            
+            WorldScrollManager.Instance.MoveObject(transform);
         }
 
         public void Initialize(PlatformData data, PlatformPieceData pieceData, Vector3 worldPosition,
@@ -112,10 +113,9 @@ namespace Platform
 
         private void OnDrawGizmos()
         {
-
             if (!DebuggerManager.Instance.showLogs)
                 return;
-            
+
             float y = transform.position.y;
 
             Vector3 leftPos = new Vector3(LeftEdge, y, 0f);
@@ -148,10 +148,9 @@ namespace Platform
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
-            
             if (!DebuggerManager.Instance.showLogs)
                 return;
-            
+
             float width = currentPieceData != null ? currentPieceData.width : 1f;
             Vector3 left = new Vector3(
                 transform.position.x - width * 0.5f,

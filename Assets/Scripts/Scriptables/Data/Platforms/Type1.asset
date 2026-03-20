@@ -24,7 +24,7 @@ MonoBehaviour:
     affectsSectionEnd: 1
   minHeightOffset: -1
   maxHeightOffset: 2
-  spawnWeight: 1
+  spawnWeight: 4
   allowEarlyGame: 1
   allowMidGame: 1
   allowLateGame: 1

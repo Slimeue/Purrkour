@@ -25,15 +25,17 @@ namespace Fish
             transform.position = worldPosition;
             platform = platformRef;
             gameObject.SetActive(true);
-            
+
             if (_mainCamera == null)
                 _mainCamera = Camera.main;
         }
 
         private void Update()
         {
-            transform.position +=
-                Vector3.left * (Platform.PlatformInstance.WorldSpeed * speedMultiplier * Time.deltaTime);
+            if (WorldScrollManager.Instance == null)
+                return;
+
+            WorldScrollManager.Instance.MoveObject(transform);
 
             if (_mainCamera == null)
                 return;
@@ -50,19 +52,17 @@ namespace Fish
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
-            
+
             PointsManager.Instance.AddPoints(fishData, other.transform);
             GenericObjectPool<FishInstance>.Release(this);
         }
-        
-        
 
 
         private void OnDrawGizmos()
         {
             if (!DebuggerManager.Instance.showLogs)
                 return;
-            
+
             Vector3 pos = transform.position;
 
             // Draw vertical line (like a marker)

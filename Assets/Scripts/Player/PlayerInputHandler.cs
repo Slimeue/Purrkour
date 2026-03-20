@@ -21,16 +21,20 @@ namespace Player
             _inputActions = new InputSystemActions();
             _inputActions.Player.SetCallbacks(this);
         }
+        
+        public void EnablePlayerInputHandler() => _inputActions.Player.Enable();
+        public void DisablePlayerInputHandler() => _inputActions.Player.Disable();
 
-        private void OnEnable()
-        {
-            _inputActions.Player.Enable();
-        }
-
-        private void OnDisable()
-        {
-            _inputActions.Player.Disable();
-        }
+        // private void OnEnable()
+        // {
+        //     _inputActions.Player.Enable();
+        // }
+        //
+        // private void OnDisable()
+        // {
+        //     _inputActions.Player.Disable();
+        // }
+        
 
         private void OnDestroy()
         {

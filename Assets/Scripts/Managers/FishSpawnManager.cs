@@ -188,6 +188,8 @@ namespace Managers
             var fishData = GetWeightedRandomFishData();
             if (fishData == null || fishData.prefab == null)
                 return;
+            
+            _sectionsSinceLastFish = 0;
 
             var pattern = GetRandomPattern();
 
@@ -497,10 +499,10 @@ namespace Managers
             if (_sectionsSinceLastFish < _requiredSectionsBetweenFish)
                 return false;
 
-            if (Random.value > fishSectionChance)
-                return false;
+            // Commented this to ensure fish always spawn after cooldown, but can re-enable for extra randomness if needed
+            // if (Random.value > fishSectionChance)
+            //     return false;
 
-            _sectionsSinceLastFish = 0;
             RollNextCooldown();
 
             return true;
