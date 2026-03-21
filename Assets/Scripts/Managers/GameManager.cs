@@ -62,14 +62,15 @@ namespace Managers
         
         public void StartGame()
         {
-            _stateMachine.ChangeState(PlayingState);
             OnRestartGame?.Invoke();
+            _stateMachine.ChangeState(PlayingState);
         }
 
         public void GoToMainMenu()
         {
-            _stateMachine.ChangeState(MainMenuState);
             OnReturnToMainMenu?.Invoke();
+            OnRestartGame?.Invoke();
+            _stateMachine.ChangeState(MainMenuState);
         }
 
         public void GameOver() => _stateMachine.ChangeState(GameOverState);

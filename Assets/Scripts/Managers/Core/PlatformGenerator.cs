@@ -66,8 +66,8 @@ namespace Core
                 return;
             }
 
-            InitializeGeneration();
             GameManager.Instance.OnRestartGame += ClearPlatforms;
+            GameManager.Instance.OnRestartGame += InitializeGeneration;
         }
 
         private void Update()
@@ -76,7 +76,7 @@ namespace Core
             CleanupOldPlatforms();
         }
 
-        private void InitializeGeneration()
+        public void InitializeGeneration()
         {
             _lastPlatformY = startY;
 

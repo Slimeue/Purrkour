@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Core;
 using DG.Tweening;
 using Managers;
@@ -70,6 +71,7 @@ namespace UI
         {
             if (rewardPanel != null)
             {
+                rewardPointsText.text = PointsManager.Instance.CurrentPoints.ToString(CultureInfo.InvariantCulture);
                 rewardPanel.gameObject.SetActive(show);
             }
         }

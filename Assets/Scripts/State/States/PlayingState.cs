@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using Core;
+using Managers;
 using S_Machine;
 using UI;
 
@@ -8,9 +9,11 @@ namespace State.States
     {
         public void OnEnter(GameContext context)
         {
-            context.playerBase.InputHandler.EnablePlayerInputHandler();
             WorldScrollManager.Instance.ResumeScrolling();
             UIGameMain.Instance.SetStatusElementsActive(true);
+            PlatformGenerator.Instance.InitializeGeneration();
+            
+            context.playerBase.InputHandler.EnablePlayerInputHandler();
             context.gameState = Data.GameState.Playing;
         }
 

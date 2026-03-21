@@ -3640,7 +3640,7 @@ MonoBehaviour:
   elements: {fileID: 1814675386}
   introGameOverPanel: {fileID: 725549756}
   rewardPanel: {fileID: 1498994959}
-  rewardPointsText: {fileID: 0}
+  rewardPointsText: {fileID: 884198914}
   newGameButton: {fileID: 13108329}
   exitButton: {fileID: 62050577}
 --- !u!1 &1840665086
