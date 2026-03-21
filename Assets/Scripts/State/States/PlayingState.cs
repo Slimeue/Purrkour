@@ -10,8 +10,8 @@ namespace State.States
         {
             context.playerBase.InputHandler.EnablePlayerInputHandler();
             WorldScrollManager.Instance.ResumeScrolling();
-            
             UIGameMain.Instance.SetStatusElementsActive(true);
+            context.gameState = Data.GameState.Playing;
         }
 
         public void OnUpdate(GameContext context) { }

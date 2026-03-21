@@ -6,6 +6,7 @@ using Scriptables;
 using Tools;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Managers
@@ -58,6 +59,9 @@ namespace Managers
         private int _requiredSectionsBetweenFish;
 
         private int _sectionsSinceLastFish;
+        
+        [FormerlySerializedAs("_activeFishInstances")] public List<FishInstance> activeFishInstances = new();
+        
         public static FishSpawnManager Instance { get; private set; }
 
         private void Awake()
@@ -84,6 +88,7 @@ namespace Managers
 
             RollNextCooldown();
             _sectionsSinceLastFish = 0;
+            GameManager.Instance.OnRestartGame += Restart;
         }
 
         private void Update()
@@ -388,6 +393,7 @@ namespace Managers
                 return;
 
             fishInstance.Initialize(fishData, spawnPosition, platform);
+            activeFishInstances.Add(fishInstance);
         }
 
         public List<float> BuildSlotsForPlatform(PlatformInstance platform)
@@ -580,6 +586,16 @@ namespace Managers
             Arc,
             RichLine,
             ArcBetweenPlatforms
+        }
+        
+        private void Restart()
+        {
+            foreach (var fish in activeFishInstances)
+            {
+                if (fish != null)
+                    GenericObjectPool<FishInstance>.Release(fish);
+            }
+            activeFishInstances.Clear();
         }
     }
 }

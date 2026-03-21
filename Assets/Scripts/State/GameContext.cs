@@ -7,5 +7,6 @@ namespace State
         public GameManager gameManager;
         public UIManager uiManager;
         public PlayerBase playerBase;
+        public Data.GameState gameState;
     }
 }

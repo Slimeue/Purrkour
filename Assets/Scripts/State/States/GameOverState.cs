@@ -4,22 +4,23 @@ using UI;
 
 namespace State.States
 {
-    public class MainMenuState : IState<GameContext>
+    public class GameOverState : IState<GameContext>
     {
         public void OnEnter(GameContext context)
         {
-            UIMainMenu.Instance.SetStatus(true);
-            WorldScrollManager.Instance.StopScrolling();
+            context.gameState = Data.GameState.GameOver;
             context.playerBase.InputHandler.DisablePlayerInputHandler();
-            context.gameState = Data.GameState.MainMenu;
+            WorldScrollManager.Instance.StopScrolling();
+            UIGameOver.Instance.ShowGameOver(true);
         }
 
         public void OnUpdate(GameContext context)
-        { }
+        {
+        }
 
         public void OnExit(GameContext context)
         {
-            UIMainMenu.Instance.SetStatus(false);
+            UIGameOver.Instance.ShowGameOver(false);
         }
     }
 }

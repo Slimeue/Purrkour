@@ -9,15 +9,21 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
-        
-        StateMachine<GameContext> _stateMachine;
-        GameContext _gameContext;
+        private StateMachine<GameContext> _stateMachine;
+        public GameContext GameContext { get; private set; }
+
+        public Data.GameState CurrentGameState => GameContext.gameState;
         
         public static GameManager Instance { get; private set; }
 
         private MainMenuState MainMenuState { get; set; }
         private PlayingState PlayingState { get; set; }
-        
+        private GameOverState GameOverState { get; set; }
+
+        public delegate void RestartGame();
+        public delegate void ReturnToMainMenu();
+        public event RestartGame OnRestartGame;
+        public event ReturnToMainMenu OnReturnToMainMenu;
         
         private void Awake()
         {
@@ -28,7 +34,7 @@ namespace Managers
 
             Instance = this;
 
-            _gameContext = new GameContext
+            GameContext = new GameContext
             {
                 // Initialize any shared data or references here
                 gameManager =  this,
@@ -36,11 +42,16 @@ namespace Managers
                 playerBase = FindAnyObjectByType<PlayerBase>()
             };
             
-            _stateMachine = new StateMachine<GameContext>(_gameContext);
+            _stateMachine = new StateMachine<GameContext>(GameContext);
             
             MainMenuState = new MainMenuState();
             PlayingState = new PlayingState();
+            GameOverState = new GameOverState();
             
+        }
+
+        private void Start()
+        {
             GoToMainMenu();
         }
 
@@ -49,7 +60,20 @@ namespace Managers
             _stateMachine.Update();
         }
         
-        public void StartGame() => _stateMachine.ChangeState(PlayingState);
-        public void GoToMainMenu() => _stateMachine.ChangeState(MainMenuState);
+        public void StartGame()
+        {
+            _stateMachine.ChangeState(PlayingState);
+            OnRestartGame?.Invoke();
+        }
+
+        public void GoToMainMenu()
+        {
+            _stateMachine.ChangeState(MainMenuState);
+            OnReturnToMainMenu?.Invoke();
+        }
+
+        public void GameOver() => _stateMachine.ChangeState(GameOverState);
+
+
     }
 }

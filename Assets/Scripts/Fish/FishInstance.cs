@@ -45,6 +45,7 @@ namespace Fish
 
             if (transform.position.x < leftEdge - despawnOffset)
             {
+                FishSpawnManager.Instance.activeFishInstances.Remove(this);
                 GenericObjectPool<FishInstance>.Release(this);
             }
         }
@@ -53,6 +54,7 @@ namespace Fish
         {
             if (!other.CompareTag("Player")) return;
 
+            FishSpawnManager.Instance.activeFishInstances.Remove(this);
             PointsManager.Instance.AddPoints(fishData, other.transform);
             GenericObjectPool<FishInstance>.Release(this);
         }

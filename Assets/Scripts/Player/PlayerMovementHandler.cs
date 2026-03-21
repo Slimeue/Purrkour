@@ -1,3 +1,6 @@
+using DG.Tweening;
+using Managers;
+using State.States;
 using UnityEngine;
 
 namespace Player
@@ -50,6 +53,21 @@ namespace Player
             UpdateGroundState();
             UpdateTimers();
             HandleJumpInput();
+            FixPosition();
+        }
+
+        private bool _isFixingPosition;
+
+        private void FixPosition()
+        {
+            if (_isFixingPosition
+                || Mathf.Approximately(transform.position.x, -8f)
+                || !_isGrounded
+                || GameManager.Instance.CurrentGameState != Data.GameState.Playing) return;
+            _isFixingPosition = true;
+            transform.DOMoveX(-8f, 5f)
+                .SetEase(Ease.OutSine)
+                .OnComplete(() => _isFixingPosition = false);
         }
 
         private void FixedUpdate()

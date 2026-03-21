@@ -10,6 +10,8 @@ namespace Core
 {
     public class PlatformGenerator : MonoBehaviour
     {
+        public static PlatformGenerator Instance;
+        
         [Header("Data")] [SerializeField] private List<PlatformData> platformDatas;
 
         [Header("Generation Settings")] [SerializeField]
@@ -40,6 +42,16 @@ namespace Core
         private void Awake()
         {
             _mainCamera = Camera.main;
+            
+            if (Instance != null)
+            {
+                DebuggerManager.Instance.Warn("Multiple PlatformGenerator instances detected. Destroying duplicate.",
+                    gameObject);
+                Destroy(gameObject);
+                return;
+            }
+            
+            Instance = this;
 
             if (platformParent == null)
                 platformParent = transform;
@@ -55,6 +67,7 @@ namespace Core
             }
 
             InitializeGeneration();
+            GameManager.Instance.OnRestartGame += ClearPlatforms;
         }
 
         private void Update()
@@ -331,6 +344,20 @@ namespace Core
             }
 
             return rightmostX == float.MinValue ? GetCameraLeftEdgeX() - 2f : rightmostX;
+        }
+        
+        private void ClearPlatforms()
+        {
+            for (int i = _activePlatforms.Count - 1; i >= 0; i--)
+            {
+                PlatformInstance platformInstance = _activePlatforms[i];
+                if (platformInstance != null)
+                {
+                    GenericObjectPool<PlatformInstance>.Release(platformInstance);
+                }
+            }
+
+            _activePlatforms.Clear();
         }
 
 #if UNITY_EDITOR

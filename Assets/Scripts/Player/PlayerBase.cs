@@ -18,5 +18,23 @@ namespace Player
             InputHandler = GetComponent<PlayerInputHandler>();
         }
 
+        private void Start()
+        {
+            GameManager.Instance.OnRestartGame += ResetPlayer;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.CompareTag("Death")) return;
+            
+            _playerHealthComponent.TakeDamage(_playerHealthComponent.CurrentHealth);
+            
+        }
+
+        private void ResetPlayer()
+        {
+            transform.position = Vector3.zero;
+            _playerHealthComponent.Reset();
+        }
     }
 }

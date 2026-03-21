@@ -56,6 +56,7 @@ namespace Managers
         {
             RefreshPointsText();
             OnPointsChanged?.Invoke(CurrentPoints);
+            GameManager.Instance.OnRestartGame += ResetPoints;
         }
 
         public void AddPoints(FishData data, Transform worldTransform)
@@ -121,6 +122,19 @@ namespace Managers
                 return;
 
             _pointsText.text = CurrentPoints.ToString("0");
+        }
+
+        public void ResetPoints()
+        {
+            CurrentPoints = 0f;
+            RefreshPointsText();
+            OnPointsChanged?.Invoke(CurrentPoints);
+
+            DebuggerManager.Instance.Log(
+                $"Points reset to zero.",
+                DebuggerManager.LogLevel.Info,
+                this
+            );
         }
 
         private void SpawnFloatingText(string text, Vector3 worldPosition)

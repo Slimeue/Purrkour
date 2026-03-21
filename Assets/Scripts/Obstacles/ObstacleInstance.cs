@@ -44,6 +44,7 @@ namespace Obstacles
 
             if (transform.position.x < leftEdge - despawnOffset)
             {
+                ObstacleSpawnManager.Instance.obstacleInstances.Remove(this);
                 GenericObjectPool<ObstacleInstance>.Release(this);
             }
         }
@@ -56,6 +57,7 @@ namespace Obstacles
 
             killable?.TakeDamage(currentData.damage);
 
+            ObstacleSpawnManager.Instance.obstacleInstances.Remove(this);
             GenericObjectPool<ObstacleInstance>.Release(this);
         }
     }

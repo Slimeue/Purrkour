@@ -19,6 +19,8 @@ namespace Managers
         [SerializeField] private float obstacleHeightOffset = 0f;
         [SerializeField] private float obstacleSectionChance = 0.55f;
         [SerializeField] private int maxObstaclesPerSection = 1;
+        
+        public List<ObstacleInstance> obstacleInstances = new List<ObstacleInstance>();
 
         private void Awake()
         {
@@ -35,6 +37,8 @@ namespace Managers
         {
             if (obstacleDataArray == null)
                 return;
+
+            GameManager.Instance.OnRestartGame += ClearObstacles;
 
             foreach (var obstacleData in obstacleDataArray)
             {
@@ -102,6 +106,7 @@ namespace Managers
                 return;
 
             instance.Initialize(obstacleData, spawnPosition, platform);
+            obstacleInstances.Add(instance);
         }
 
         private ObstacleData GetWeightedRandomObstacleData()
@@ -139,6 +144,17 @@ namespace Managers
             }
 
             return obstacleDataArray[^1];
+        }
+        
+        public void ClearObstacles()
+        {
+            foreach (var obstacle in obstacleInstances)
+            {
+                if (obstacle != null)
+                    GenericObjectPool<ObstacleInstance>.Release(obstacle);
+            }
+
+            obstacleInstances.Clear();
         }
     }
 }

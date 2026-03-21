@@ -1,4 +1,6 @@
-﻿using Interface;
+﻿using System;
+using Interface;
+using Managers;
 using UnityEngine;
 
 namespace Player
@@ -29,7 +31,7 @@ namespace Player
         public void ReduceHealth(int amount)
         {
             _currentHealth -= amount;
-            if (_currentHealth < 0)
+            if (_currentHealth <= 0)
             {
                 _currentHealth = 0;
                 Kill();
@@ -49,7 +51,13 @@ namespace Player
 
         public void Kill()
         {
-            
+            GameManager.Instance.GameOver();
+        }
+
+        public void Reset()
+        {
+            _currentHealth = maxHealth;
+            NotifyHealthChanged();
         }
     }
 }
