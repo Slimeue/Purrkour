@@ -4,6 +4,7 @@ using Platform;
 using Scriptables;
 using Tools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Managers
 {
@@ -11,8 +12,10 @@ namespace Managers
     {
         public static ObstacleSpawnManager Instance { get; private set; }
 
+        [FormerlySerializedAs("obstacleDataArray")]
         [Header("Obstacle Data")]
-        [SerializeField] private List<ObstacleData> obstacleDataArray;
+        [SerializeField] private List<ObstacleData> obstacleGroundData;
+        [SerializeField] private List<ObstacleData> obstacleCeilingGroundData;
 
         [Header("Spawn")]
         [SerializeField] private Transform obstacleParent;
@@ -35,12 +38,12 @@ namespace Managers
 
         private void Start()
         {
-            if (obstacleDataArray == null)
+            if (obstacleGroundData == null)
                 return;
 
             GameManager.Instance.OnRestartGame += ClearObstacles;
 
-            foreach (var obstacleData in obstacleDataArray)
+            foreach (var obstacleData in obstacleGroundData)
             {
                 if (obstacleData == null || obstacleData.prefab == null)
                     continue;
@@ -67,7 +70,8 @@ namespace Managers
 
         private void SpawnObstacle(SpawnSectionContext context)
         {
-            ObstacleData obstacleData = GetWeightedRandomObstacleData();
+            var obstacleData = GetWeightedRandomObstacleData(context.Platform.CurrentPieceData.isCeiling ? obstacleCeilingGroundData : obstacleGroundData);
+            
             if (obstacleData == null || obstacleData.prefab == null)
                 return;
 
@@ -91,11 +95,16 @@ namespace Managers
             int endIndex = Mathf.Min(chosenStartIndex + obstacleData.slotWidth - 1, context.SlotXPositions.Count - 1);
             float endX = context.SlotXPositions[endIndex];
             float centerX = (startX + endX) * 0.5f;
+            
 
             PlatformInstance platform = context.Platform;
+            
+            float ySpawnPos = !context.Platform.CurrentPieceData.isCeiling ? 
+                    platform.transform.position.y + platform.Height * 0.5f + obstacleHeightOffset :
+                    platform.transform.position.y - platform.Height * 0.5f - obstacleHeightOffset;
             Vector3 spawnPosition = new Vector3(
                 centerX,
-                platform.transform.position.y + platform.Height * 0.5f + obstacleHeightOffset,
+                ySpawnPos,
                 platform.transform.position.z
             );
 
@@ -108,17 +117,17 @@ namespace Managers
             instance.Initialize(obstacleData, spawnPosition, platform);
             obstacleInstances.Add(instance);
         }
-
-        private ObstacleData GetWeightedRandomObstacleData()
+        
+        private ObstacleData GetWeightedRandomObstacleData(List<ObstacleData> obstacleData)
         {
-            if (obstacleDataArray == null || obstacleDataArray.Count == 0)
+            if (obstacleData == null || obstacleData.Count == 0)
                 return null;
 
             float totalWeight = 0f;
 
-            for (int i = 0; i < obstacleDataArray.Count; i++)
+            for (int i = 0; i < obstacleData.Count; i++)
             {
-                ObstacleData data = obstacleDataArray[i];
+                ObstacleData data = obstacleData[i];
                 if (data == null || data.prefab == null)
                     continue;
 
@@ -131,9 +140,9 @@ namespace Managers
             float roll = Random.Range(0f, totalWeight);
             float cumulative = 0f;
 
-            for (int i = 0; i < obstacleDataArray.Count; i++)
+            for (int i = 0; i < obstacleData.Count; i++)
             {
-                ObstacleData data = obstacleDataArray[i];
+                ObstacleData data = obstacleData[i];
                 if (data == null || data.prefab == null)
                     continue;
 
@@ -143,7 +152,7 @@ namespace Managers
                     return data;
             }
 
-            return obstacleDataArray[^1];
+            return obstacleData[^1];
         }
         
         public void ClearObstacles()

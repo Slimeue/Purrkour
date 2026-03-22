@@ -34,8 +34,7 @@ namespace Managers
             SpawnSectionContext context = new SpawnSectionContext(nextPlatform, slotXPositions);
 
             // Obstacles first, so fish can avoid them.
-            if (nextPlatform.CurrentData.canSpawnObstacle)
-                ObstacleSpawnManager.Instance.HandleSectionSpawn(context);
+            ObstacleSpawnManager.Instance.HandleSectionSpawn(context);
 
             // Fish second, using free slots only.
             FishSpawnManager.Instance.HandleSectionSpawn(context, previousPlatform);

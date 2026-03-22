@@ -11,7 +11,8 @@ namespace Managers
     {
         public static PointsManager Instance;
 
-        public float CurrentPoints { get; private set; }
+        public float TotalPoints { get; private set; } // will act as a storage for the total points.
+        public float CurrentPoints { get; private set; } // current points per run
 
         [Header("UI References")]
         [SerializeField] private TextMeshProUGUI _pointsText;
@@ -30,6 +31,7 @@ namespace Managers
         public event PointsChanged OnPointsChanged;
         public event PointsGain OnPointsGain;
         public event PointsLose OnPointsLose;
+        
         
 
         private Camera _mainCamera;
@@ -54,8 +56,7 @@ namespace Managers
 
         private void Start()
         {
-            RefreshPointsText();
-            OnPointsChanged?.Invoke(CurrentPoints);
+            GameManager.Instance.OnEndGame += SavePoints;
             GameManager.Instance.OnRestartGame += ResetPoints;
         }
 
@@ -76,7 +77,6 @@ namespace Managers
             }
 
             CurrentPoints += pointsToAdd;
-            RefreshPointsText();
             OnPointsGain?.Invoke(pointsToAdd);
             OnPointsChanged?.Invoke(CurrentPoints);
             SpawnFloatingText($"+{pointsToAdd:0}", worldTransform.position);
@@ -105,7 +105,6 @@ namespace Managers
             }
 
             CurrentPoints = Mathf.Max(CurrentPoints - amount, 0f);
-            RefreshPointsText();
             OnPointsLose?.Invoke(CurrentPoints);
             OnPointsChanged?.Invoke(CurrentPoints);
 
@@ -121,7 +120,7 @@ namespace Managers
             if (_pointsText == null)
                 return;
 
-            _pointsText.text = CurrentPoints.ToString("0");
+            _pointsText.text = TotalPoints.ToString("0");
         }
 
         public void ResetPoints()
@@ -236,6 +235,25 @@ namespace Managers
                     Debug.LogWarning($"[{nameof(PointsManager)}] Unknown fish rarity: {rarity}", this);
                     return 0f;
             }
+        }
+
+        public void PointsChange()
+        {
+            RefreshPointsText();
+            OnPointsChanged?.Invoke(CurrentPoints);
+        }
+
+        private void SavePoints()
+        {
+            TotalPoints += CurrentPoints;
+            PlayerPrefs.SetInt("TotalPoints", Mathf.CeilToInt(TotalPoints));
+            RefreshPointsText();
+        }
+        
+        public void GetSavedPoints()
+        {
+            TotalPoints = PlayerPrefs.GetInt("TotalPoints", 0);
+            RefreshPointsText();
         }
     }
 }

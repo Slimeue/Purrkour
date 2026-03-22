@@ -16,27 +16,21 @@
         Legendary
     }
     
-    public enum FishType
+    public enum ObstacleType 
     {
         Normal,
-        Obstacle,
+        Ceiling
     }
-    
-    public enum FishSectionPattern
-    {
-        None,
-        Single,
-        Line,
-        Arc,
-        RichLine
-    } 
     
     public class SaveData
     {
         public int totalPoints;
         public int totalFishCaught;
         public int bestCatchPoints;
-        public int bestCatchRarity;
-        public int bestCatchSize;
+    }
+
+    public class Ranking
+    {
+        public int higherstPoints;
     }
 }

@@ -20,8 +20,10 @@ namespace Managers
         private PlayingState PlayingState { get; set; }
         private GameOverState GameOverState { get; set; }
 
+        public delegate void EndGame();
         public delegate void RestartGame();
         public delegate void ReturnToMainMenu();
+        public event EndGame OnEndGame;
         public event RestartGame OnRestartGame;
         public event ReturnToMainMenu OnReturnToMainMenu;
         
@@ -47,11 +49,12 @@ namespace Managers
             MainMenuState = new MainMenuState();
             PlayingState = new PlayingState();
             GameOverState = new GameOverState();
-            
+
         }
 
         private void Start()
         {
+            OnReturnToMainMenu += PointsManager.Instance.GetSavedPoints;
             GoToMainMenu();
         }
 
@@ -73,7 +76,11 @@ namespace Managers
             _stateMachine.ChangeState(MainMenuState);
         }
 
-        public void GameOver() => _stateMachine.ChangeState(GameOverState);
+        public void GameOver()
+        {
+            _stateMachine.ChangeState(GameOverState);   
+            OnEndGame?.Invoke();
+        } 
 
 
     }

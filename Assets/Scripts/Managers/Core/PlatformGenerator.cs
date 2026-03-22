@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Fish;
 using Managers;
 using Platform;
 using Tools;
@@ -11,7 +10,7 @@ namespace Core
     public class PlatformGenerator : MonoBehaviour
     {
         public static PlatformGenerator Instance;
-        
+
         [Header("Data")] [SerializeField] private List<PlatformData> platformDatas;
 
         [Header("Generation Settings")] [SerializeField]
@@ -33,16 +32,16 @@ namespace Core
         [Header("Debug")] [SerializeField] private bool showDebugLogs;
 
         private readonly List<PlatformInstance> _activePlatforms = new();
-
-        private PlatformInstance _previousPlatform;
+        private float _lastPlatformY;
 
         private Camera _mainCamera;
-        private float _lastPlatformY;
+
+        private PlatformInstance _previousPlatform;
 
         private void Awake()
         {
             _mainCamera = Camera.main;
-            
+
             if (Instance != null)
             {
                 DebuggerManager.Instance.Warn("Multiple PlatformGenerator instances detected. Destroying duplicate.",
@@ -50,7 +49,7 @@ namespace Core
                 Destroy(gameObject);
                 return;
             }
-            
+
             Instance = this;
 
             if (platformParent == null)
@@ -76,33 +75,52 @@ namespace Core
             CleanupOldPlatforms();
         }
 
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            var cam = Camera.main;
+            if (cam == null)
+                return;
+
+            var halfWidth = cam.orthographicSize * cam.aspect;
+            var rightEdge = cam.transform.position.x + halfWidth;
+            var leftEdge = cam.transform.position.x - halfWidth;
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(
+                new Vector3(rightEdge + generateAheadDistance, -10f, 0f),
+                new Vector3(rightEdge + generateAheadDistance, 10f, 0f)
+            );
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(
+                new Vector3(leftEdge - despawnBehindDistance, -10f, 0f),
+                new Vector3(leftEdge - despawnBehindDistance, 10f, 0f)
+            );
+        }
+#endif
+
         public void InitializeGeneration()
         {
             _lastPlatformY = startY;
 
-            for (int i = 0; i < initialSpawnCount; i++)
-            {
-                SpawnNextPlatformSection(i == 0);
-            }
+            for (var i = 0; i < initialSpawnCount; i++) SpawnNextPlatformSection(i == 0);
         }
 
         private void GenerateAheadIfNeeded()
         {
-            float targetRightX = GetCameraRightEdgeX() + generateAheadDistance;
+            var targetRightX = GetCameraRightEdgeX() + generateAheadDistance;
 
-            while (GetRightmostProgressionEdge() < targetRightX)
-            {
-                SpawnNextPlatformSection(false);
-            }
+            while (GetRightmostProgressionEdge() < targetRightX) SpawnNextPlatformSection(false);
         }
 
         private void CleanupOldPlatforms()
         {
-            float despawnX = GetCameraLeftEdgeX() - despawnBehindDistance;
+            var despawnX = GetCameraLeftEdgeX() - despawnBehindDistance;
 
-            for (int i = _activePlatforms.Count - 1; i >= 0; i--)
+            for (var i = _activePlatforms.Count - 1; i >= 0; i--)
             {
-                PlatformInstance platformInstance = _activePlatforms[i];
+                var platformInstance = _activePlatforms[i];
 
                 if (platformInstance == null)
                 {
@@ -120,7 +138,7 @@ namespace Core
 
         private void SpawnNextPlatformSection(bool isFirst)
         {
-            PlatformData chosenData = isFirst ? platformDatas[0] : GetWeightRandomPlatformData();
+            var chosenData = isFirst ? platformDatas[0] : GetWeightRandomPlatformData();
 
             if (!IsValidPlatformData(chosenData))
             {
@@ -128,20 +146,20 @@ namespace Core
                 return;
             }
 
-            float sectionGap = isFirst ? 0f : Random.Range(minGap, maxGap);
-            float targetY = isFirst ? startY : GetNextPlatformY(chosenData);
+            var sectionGap = isFirst ? 0f : Random.Range(minGap, maxGap);
+            var targetY = isFirst ? startY : GetNextPlatformY(chosenData);
 
-            float sectionStartX = isFirst
+            var sectionStartX = isFirst
                 ? GetCameraLeftEdgeX()
                 : GetRightmostProgressionEdge() + sectionGap;
 
-            float currentLeftEdgeX = sectionStartX;
+            var currentLeftEdgeX = sectionStartX;
 
-            float sectionRightEdge = sectionStartX;
+            var sectionRightEdge = sectionStartX;
 
-            for (int i = 0; i < chosenData.pieces.Length; i++)
+            for (var i = 0; i < chosenData.pieces.Length; i++)
             {
-                PlatformPieceData piece = chosenData.pieces[i];
+                var piece = chosenData.pieces[i];
 
                 if (piece == null || piece.prefab == null)
                 {
@@ -151,18 +169,15 @@ namespace Core
                     continue;
                 }
 
-                float centerX = isFirst ? 0f : currentLeftEdgeX + (piece.width * 0.5f);
+                var centerX = isFirst ? 0f : currentLeftEdgeX + piece.width * 0.5f;
 
-                float pieceY = targetY;
-                if (piece.isCeiling)
-                {
-                    pieceY += piece.verticalOffset;
-                }
+                var pieceY = targetY;
+                if (piece.isCeiling) pieceY += piece.verticalOffset;
 
-                Vector3 pieceSpawnPosition = new Vector3(centerX, pieceY, 0f);
+                var pieceSpawnPosition = new Vector3(centerX, pieceY, 0f);
 
-                PlatformInstance newPlatformInstance =
-                    GenericObjectPool<PlatformInstance>.Get(piece.prefab, platformParent, 16);
+                var newPlatformInstance =
+                    GenericObjectPool<PlatformInstance>.Get(piece.prefab, platformParent);
 
                 if (newPlatformInstance == null)
                 {
@@ -174,59 +189,49 @@ namespace Core
                 _activePlatforms.Add(newPlatformInstance);
 
                 if (piece.affectsSectionEnd)
-                {
                     sectionRightEdge = Mathf.Max(sectionRightEdge, newPlatformInstance.RightEdge);
-                }
 
-                if (!piece.isCeiling)
-                {
-                    currentLeftEdgeX = newPlatformInstance.RightEdge;
-                    SpawnManager.Instance.HandleSectionSpawn(newPlatformInstance, _previousPlatform);
-                    _previousPlatform = newPlatformInstance;
-                }
-                
+                currentLeftEdgeX = newPlatformInstance.RightEdge;
+                SpawnManager.Instance.HandleSectionSpawn(newPlatformInstance, _previousPlatform);
+                _previousPlatform = newPlatformInstance;
             }
 
             _lastPlatformY = targetY;
 
             if (showDebugLogs)
-            {
                 DebuggerManager.Instance.DebugLog(
                     $"PlatformGenerator: Spawned section '{chosenData.name}' | StartX: {sectionStartX:F2}, BaseY: {targetY:F2}, ProgressionRightEdge: {sectionRightEdge:F2}",
                     gameObject);
-            }
         }
 
         private float GetNextPlatformY(PlatformData data)
         {
-            float randomOffset = Random.Range(data.minHeightOffset, data.maxHeightOffset);
-            float unclampedY = _lastPlatformY + randomOffset;
+            var randomOffset = Random.Range(data.minHeightOffset, data.maxHeightOffset);
+            var unclampedY = _lastPlatformY + randomOffset;
 
-            float clampedByStep = Mathf.Clamp(
+            var clampedByStep = Mathf.Clamp(
                 unclampedY,
                 _lastPlatformY - maxStepDown,
                 _lastPlatformY + maxStepUp
             );
 
-            float finalY = Mathf.Clamp(clampedByStep, minY, maxY);
+            var finalY = Mathf.Clamp(clampedByStep, minY, maxY);
 
             if (showDebugLogs)
-            {
                 DebuggerManager.Instance.DebugLog(
                     $"PlatformGenerator: GetNextPlatformY() - lastY: {_lastPlatformY}, randomOffset: {randomOffset}, unclampedY: {unclampedY}, clampedByStep: {clampedByStep}, finalY: {finalY}",
                     gameObject);
-            }
 
             return finalY;
         }
 
         private PlatformData GetWeightRandomPlatformData()
         {
-            float totalWeight = 0f;
+            var totalWeight = 0f;
 
-            for (int i = 0; i < platformDatas.Count; i++)
+            for (var i = 0; i < platformDatas.Count; i++)
             {
-                PlatformData platformData = platformDatas[i];
+                var platformData = platformDatas[i];
 
                 if (!IsValidPlatformData(platformData))
                 {
@@ -241,21 +246,19 @@ namespace Core
 
             if (totalWeight <= 0f)
             {
-                for (int i = 0; i < platformDatas.Count; i++)
-                {
+                for (var i = 0; i < platformDatas.Count; i++)
                     if (IsValidPlatformData(platformDatas[i]))
                         return platformDatas[i];
-                }
 
                 return null;
             }
 
-            float roll = Random.Range(0f, totalWeight);
-            float cumulativeWeight = 0f;
+            var roll = Random.Range(0f, totalWeight);
+            var cumulativeWeight = 0f;
 
-            for (int i = 0; i < platformDatas.Count; i++)
+            for (var i = 0; i < platformDatas.Count; i++)
             {
-                PlatformData platformData = platformDatas[i];
+                var platformData = platformDatas[i];
 
                 if (!IsValidPlatformData(platformData))
                     continue;
@@ -274,9 +277,9 @@ namespace Core
             if (data == null || data.pieces == null || data.pieces.Length == 0)
                 return false;
 
-            for (int i = 0; i < data.pieces.Length; i++)
+            for (var i = 0; i < data.pieces.Length; i++)
             {
-                PlatformPieceData piece = data.pieces[i];
+                var piece = data.pieces[i];
                 if (piece != null && piece.prefab != null)
                     return true;
             }
@@ -289,7 +292,7 @@ namespace Core
             if (_mainCamera == null)
                 return 0f;
 
-            float halfWidth = _mainCamera.orthographicSize * _mainCamera.aspect;
+            var halfWidth = _mainCamera.orthographicSize * _mainCamera.aspect;
             return _mainCamera.transform.position.x + halfWidth;
         }
 
@@ -298,7 +301,7 @@ namespace Core
             if (_mainCamera == null)
                 return 0f;
 
-            float halfWidth = _mainCamera.orthographicSize * _mainCamera.aspect;
+            var halfWidth = _mainCamera.orthographicSize * _mainCamera.aspect;
             return _mainCamera.transform.position.x - halfWidth;
         }
 
@@ -307,11 +310,11 @@ namespace Core
             if (_activePlatforms.Count == 0)
                 return GetCameraLeftEdgeX() - 2f;
 
-            float rightmostX = float.MinValue;
+            var rightmostX = float.MinValue;
 
-            for (int i = 0; i < _activePlatforms.Count; i++)
+            for (var i = 0; i < _activePlatforms.Count; i++)
             {
-                PlatformInstance platform = _activePlatforms[i];
+                var platform = _activePlatforms[i];
                 if (platform == null) continue;
 
                 if (platform.RightEdge > rightmostX)
@@ -326,14 +329,14 @@ namespace Core
             if (_activePlatforms.Count == 0)
                 return GetCameraLeftEdgeX() - 2f;
 
-            float rightmostX = float.MinValue;
+            var rightmostX = float.MinValue;
 
-            for (int i = 0; i < _activePlatforms.Count; i++)
+            for (var i = 0; i < _activePlatforms.Count; i++)
             {
-                PlatformInstance platform = _activePlatforms[i];
+                var platform = _activePlatforms[i];
                 if (platform == null) continue;
 
-                PlatformPieceData pieceData = platform.CurrentPieceData;
+                var pieceData = platform.CurrentPieceData;
                 if (pieceData == null) continue;
 
                 if (!pieceData.affectsSectionEnd)
@@ -345,44 +348,16 @@ namespace Core
 
             return rightmostX == float.MinValue ? GetCameraLeftEdgeX() - 2f : rightmostX;
         }
-        
+
         private void ClearPlatforms()
         {
-            for (int i = _activePlatforms.Count - 1; i >= 0; i--)
+            for (var i = _activePlatforms.Count - 1; i >= 0; i--)
             {
-                PlatformInstance platformInstance = _activePlatforms[i];
-                if (platformInstance != null)
-                {
-                    GenericObjectPool<PlatformInstance>.Release(platformInstance);
-                }
+                var platformInstance = _activePlatforms[i];
+                if (platformInstance != null) GenericObjectPool<PlatformInstance>.Release(platformInstance);
             }
 
             _activePlatforms.Clear();
         }
-
-#if UNITY_EDITOR
-        private void OnDrawGizmosSelected()
-        {
-            Camera cam = Camera.main;
-            if (cam == null)
-                return;
-
-            float halfWidth = cam.orthographicSize * cam.aspect;
-            float rightEdge = cam.transform.position.x + halfWidth;
-            float leftEdge = cam.transform.position.x - halfWidth;
-
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(
-                new Vector3(rightEdge + generateAheadDistance, -10f, 0f),
-                new Vector3(rightEdge + generateAheadDistance, 10f, 0f)
-            );
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(
-                new Vector3(leftEdge - despawnBehindDistance, -10f, 0f),
-                new Vector3(leftEdge - despawnBehindDistance, 10f, 0f)
-            );
-        }
-#endif
     }
 }

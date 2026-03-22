@@ -9,6 +9,10 @@ namespace State.States
     {
         public void OnEnter(GameContext context)
         {
+            PointsManager.Instance.OnPointsChanged += UIGameMain.Instance.ChangePoints;
+            
+            PointsManager.Instance.PointsChange();
+            
             WorldScrollManager.Instance.ResumeScrolling();
             UIGameMain.Instance.SetStatusElementsActive(true);
             PlatformGenerator.Instance.InitializeGeneration();
@@ -22,6 +26,7 @@ namespace State.States
         public void OnExit(GameContext context)
         {
             UIGameMain.Instance.SetStatusElementsActive(false);
+            PointsManager.Instance.OnPointsChanged -= UIGameMain.Instance.ChangePoints;
         }
     }
 }

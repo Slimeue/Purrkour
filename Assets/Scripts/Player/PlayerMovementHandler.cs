@@ -42,10 +42,13 @@ namespace Player
         private Rigidbody2D _rb;
         private bool _wasGrounded;
 
+        private PlayerHealthComponent _healthComponent;
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInputHandler>();
+            _healthComponent = GetComponent<PlayerHealthComponent>();
         }
 
         private void Update()
@@ -128,6 +131,9 @@ namespace Player
 
         private void ApplyBetterJumpPhysics()
         {
+            if(!_healthComponent.IsAlive)
+                return;
+            
             var yVelocity = _rb.linearVelocity.y;
 
             if (yVelocity < 0f)

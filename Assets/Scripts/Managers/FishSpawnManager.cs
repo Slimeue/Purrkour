@@ -183,7 +183,7 @@ namespace Managers
 
         public void SpawnFish(SpawnSectionContext context, PlatformInstance previousPlatform = null)
         {
-            if (context == null || context.Platform == null)
+            if (context == null || context.Platform == null || context.Platform.CurrentPieceData.isCeiling)
                 return;
 
             var freeSlotIndices = context.GetFreeSlotIndices();

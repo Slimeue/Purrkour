@@ -10,7 +10,9 @@ namespace State.States
         {
             context.gameState = Data.GameState.GameOver;
             context.playerBase.InputHandler.DisablePlayerInputHandler();
+            
             WorldScrollManager.Instance.StopScrolling();
+            
             UIGameOver.Instance.ShowGameOver(true);
         }
 

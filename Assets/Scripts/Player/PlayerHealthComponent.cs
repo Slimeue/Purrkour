@@ -15,7 +15,9 @@ namespace Player
 
         public int MaxHealth => maxHealth;
         public int CurrentHealth => _currentHealth;
-
+        
+        public bool IsAlive => _currentHealth > 0;
+        
         private void Awake()
         {
             _currentHealth = maxHealth;
@@ -51,12 +53,14 @@ namespace Player
 
         public void Kill()
         {
+            gameObject.SetActive(false);
             GameManager.Instance.GameOver();
         }
 
         public void Reset()
         {
             _currentHealth = maxHealth;
+            gameObject.SetActive(true);
             NotifyHealthChanged();
         }
     }

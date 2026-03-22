@@ -35,7 +35,7 @@ namespace UI
         private void Start()
         {
             // Points
-            PointsManager.Instance.OnPointsChanged += ChangePoints;
+            // PointsManager.Instance.OnPointsChanged += ChangePoints;
 
             // Find Player Health
             _playerHealth = FindAnyObjectByType<PlayerHealthComponent>();
@@ -66,7 +66,7 @@ namespace UI
                 _playerHealth.OnHealthChangedEvent -= ChangeHp;
         }
 
-        private void ChangePoints(float amount)
+        public void ChangePoints(float amount)
         {
             pointsText.text = amount.ToString(CultureInfo.InvariantCulture);
         }

@@ -8,7 +8,7 @@ namespace Scriptables
     {
         public string id;
         public ObstacleInstance prefab;
-
+        public Data.ObstacleType obstacleType = Data.ObstacleType.Normal;
         [Header("Spawn")]
         public float spawnWeight = 1f;
         [Tooltip("Damage dealt to player on collision.")]
