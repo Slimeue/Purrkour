@@ -247,6 +247,7 @@ namespace Managers
         {
             TotalPoints += CurrentPoints;
             PlayerPrefs.SetInt("TotalPoints", Mathf.CeilToInt(TotalPoints));
+            LeaderboardManager.Instance.RecordRunScore(Mathf.CeilToInt(CurrentPoints));
             RefreshPointsText();
         }
         

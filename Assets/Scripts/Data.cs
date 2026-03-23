@@ -1,4 +1,6 @@
-﻿public static class Data
+﻿using System.Collections.Generic;
+
+public static class Data
 {
     public enum GameState
     {
@@ -29,8 +31,8 @@
         public int bestCatchPoints;
     }
 
-    public class Ranking
+    public class LeaderboardEntryList
     {
-        public int higherstPoints;
+        public List<int> scores = new();
     }
 }

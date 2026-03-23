@@ -18,6 +18,12 @@ namespace UI
 
         [Header("Health UI")]
         [SerializeField] private Slider hpSlider;
+        
+        [Header("Pause UI")]
+        [SerializeField] private Button pauseButton;
+        [SerializeField] private RectTransform elementsPause;
+        [SerializeField] private Button quitButton;
+        [SerializeField] private Button resumeButton;
 
         private PlayerHealthComponent _playerHealth;
 
@@ -49,6 +55,31 @@ namespace UI
                 // Subscribe to event
                 _playerHealth.OnHealthChangedEvent += ChangeHp;
             }
+            
+            elementsPause.gameObject.SetActive(false);
+            
+            // Pause Button
+            if (pauseButton != null)
+                pauseButton.onClick.AddListener(() => SetPauseElementsActive(true));
+            
+            if (resumeButton != null)
+                resumeButton.onClick.AddListener(() => SetPauseElementsActive(false));
+
+            if (quitButton != null)
+                quitButton.onClick.AddListener(() =>
+                {
+                    SetPauseElementsActive(false);
+                    GameManager.Instance.GoToMainMenu();
+                });
+        }
+
+        private void SetPauseElementsActive(bool isActive)
+        {
+            if (elementsPause == null)
+            return;
+            
+            elementsPause.gameObject.SetActive(isActive);
+            Time.timeScale = isActive ? 0 : 1;
         }
         
         public void SetStatusElementsActive(bool isActive)

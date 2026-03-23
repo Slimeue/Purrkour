@@ -3,6 +3,7 @@ using Player;
 using S_Machine;
 using State;
 using State.States;
+using UI;
 using UnityEngine;
 
 namespace Managers
@@ -55,6 +56,8 @@ namespace Managers
         private void Start()
         {
             OnReturnToMainMenu += PointsManager.Instance.GetSavedPoints;
+            OnReturnToMainMenu += LeaderboardManager.Instance.LoadLeaderboard;
+            OnReturnToMainMenu += UIMainMenu.Instance.InitializeLeaderboard;
             GoToMainMenu();
         }
 

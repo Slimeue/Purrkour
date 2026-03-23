@@ -77,7 +77,9 @@ namespace Platform
                 Vector3 scale = spriteRenderer.transform.localScale;
                 scale.x = currentPieceData.width;
                 scale.y = currentPieceData.height;
-                spriteRenderer.transform.localScale = scale;
+                gameObject.transform.localScale = scale;
+                Destroy(gameObject.GetComponent<PolygonCollider2D>());
+                gameObject.AddComponent<PolygonCollider2D>();
             }
         }
 
@@ -87,7 +89,6 @@ namespace Platform
             {
                 Vector2 size = boxCollider.size;
                 size.x = currentPieceData.width;
-                boxCollider.size = size;
             }
         }
 

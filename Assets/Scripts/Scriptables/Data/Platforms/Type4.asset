@@ -15,11 +15,11 @@ MonoBehaviour:
   id: Type1
   pieces:
   - prefab: {fileID: 4553448511446149986, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
-    sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+    sprite: {fileID: -6470460504253458178, guid: 8238bf5f782913040b93b4638f3ac990, type: 3}
     apartValue: 0
     verticalOffset: 0
     height: 10
-    width: 4
+    width: 15
     isCeiling: 0
     affectsSectionEnd: 1
   minHeightOffset: -1
