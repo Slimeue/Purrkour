@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 282d2d69be6101f409f24d996c164386
+guid: 9800fa15916e0fb4a9b22eae439af6bd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3447788747212520693
-    second: blackcat_0
+      213: -2559775460605376131
+    second: blackcat 1_0
   - first:
-      213: -5807847367590487328
-    second: blackcat_1
+      213: 1728396892528907293
+    second: blackcat 1_1
   - first:
-      213: 3994288038555656405
-    second: blackcat_2
+      213: -6893276396783932097
+    second: blackcat 1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -78,12 +78,12 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
@@ -119,67 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: blackcat_0
+      name: blackcat 1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 50
-        height: 40
+        x: 17
+        y: 13
+        width: 62
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 74604a6f992eee14dbaa673adb73da0b
-      internalID: 3447788747212520693
+      spriteID: d79cad5e7c9d97cd0800000000000000
+      internalID: -2559775460605376131
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blackcat_1
+      name: blackcat 1_1
       rect:
         serializedVersion: 2
-        x: 50
-        y: 0
-        width: 50
-        height: 40
+        x: 101
+        y: 11
+        width: 74
+        height: 44
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 16f9884caa912474bb277ca00fcf5bd4
-      internalID: -5807847367590487328
+      spriteID: d14131af0df7cf710800000000000000
+      internalID: 1728396892528907293
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blackcat_2
+      name: blackcat 1_2
       rect:
         serializedVersion: 2
-        x: 100
-        y: 0
-        width: 50
-        height: 40
+        x: 203
+        y: 21
+        width: 80
+        height: 42
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: e4050494cb6befc4d848663672516c66
-      internalID: 3994288038555656405
+      spriteID: f3deb17a3a92650a0800000000000000
+      internalID: -6893276396783932097
       vertices: []
       indices: 
       edges: []
@@ -188,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0dd4431e2fafa5b489239012be973cdf
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -196,15 +196,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceOnImport
-        value: False
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":50.0,"y":40.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      blackcat_0: 3447788747212520693
-      blackcat_1: -5807847367590487328
-      blackcat_2: 3994288038555656405
+      blackcat 1_0: -2559775460605376131
+      blackcat 1_1: 1728396892528907293
+      blackcat 1_2: -6893276396783932097
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

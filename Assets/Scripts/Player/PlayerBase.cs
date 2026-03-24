@@ -11,6 +11,8 @@ namespace Player
         
         private PlayerHealthComponent _playerHealthComponent;
         public PlayerInputHandler InputHandler { get; private set; }
+        public CatSkinData SkinData { get; private set; }
+        public Animator _animator;
 
         private void Awake()
         {
@@ -21,14 +23,14 @@ namespace Player
         private void Start()
         {
             GameManager.Instance.OnRestartGame += ResetPlayer;
+            
+            _animator = GetComponentInChildren<Animator>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Death")) return;
-            
             _playerHealthComponent.TakeDamage(_playerHealthComponent.CurrentHealth);
-            
         }
 
         private void ResetPlayer()
@@ -36,5 +38,18 @@ namespace Player
             transform.position = Vector3.zero;
             _playerHealthComponent.Reset();
         }
+
+        public void SetCatSkinData(CatSkinData skinData)
+        {
+            SkinData = skinData;
+            SetAnimatorOverride(skinData.animatorOverrideController);
+        }
+
+        public void SetAnimatorOverride(AnimatorOverrideController animatorOverrideController)
+        {
+            _animator.runtimeAnimatorController = animatorOverrideController;
+        }
+        
+        
     }
 }

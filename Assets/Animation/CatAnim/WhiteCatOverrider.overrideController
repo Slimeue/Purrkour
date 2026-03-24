@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WhiteCatOverrider
+  m_Controller: {fileID: 9100000, guid: 609dc5912b4d7cd48a0398e5cd480c7f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 52e010a910e337742b61f7a74458af79, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f84872d22b670e443af9cc7a3848ff3c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f1841fceb44be0d48be1327f0759acda, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b57af2e0f6505cb4d8e80980a24254e9, type: 2}

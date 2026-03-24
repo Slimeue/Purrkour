@@ -28,6 +28,10 @@ namespace UI
         [SerializeField] private List<AboutElementInstanceData> aboutElementsData;
         [SerializeField] private RectTransform aboutElements;
         [SerializeField] private RectTransform aboutListCont;
+        
+        [Header("Shop UI")]
+        [SerializeField] private Button shopButton;
+        [SerializeField] private Button shopCloseButton;
 
         private void Awake()
         {
@@ -56,6 +60,11 @@ namespace UI
             
             if(closeAboutButton != null)
                 closeAboutButton.onClick.AddListener(() => { SetAboutStatus(false); });
+            
+            if(shopButton != null)
+                shopButton.onClick.AddListener(() => { UIShopElements.instance.SetStatus(true); });
+            if(shopCloseButton!= null)
+                shopCloseButton.onClick.AddListener(() => { UIShopElements.instance.SetStatus(false); });
         }
 
         public void SetStatus(bool status)

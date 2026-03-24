@@ -44,11 +44,14 @@ namespace Player
 
         private PlayerHealthComponent _healthComponent;
 
+        private Animator _animator;
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInputHandler>();
             _healthComponent = GetComponent<PlayerHealthComponent>();
+            _animator = GetComponentInChildren<Animator>();
         }
 
         private void Update()
@@ -93,7 +96,9 @@ namespace Player
         {
             _wasGrounded = _isGrounded;
             _isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-
+            
+            _animator.SetBool("isGrounded", _isGrounded);
+            
             if (_isGrounded) _coyoteTimer = coyoteTime;
 
             if (showDebugLogs && _isGrounded != _wasGrounded) Debug.Log(_isGrounded ? "Grounded" : "Airborne");
@@ -112,6 +117,7 @@ namespace Player
             {
                 _jumpBufferTimer = jumpBufferTime;
                 _input.ConsumeJumpPressed();
+                _animator.SetTrigger("Jump");
             }
 
             if (_jumpBufferTimer > 0f && _coyoteTimer > 0f) PerformJump();

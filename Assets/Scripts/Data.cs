@@ -23,12 +23,15 @@ public static class Data
         Normal,
         Ceiling
     }
-    
-    public class SaveData
+
+    public enum CatsType
     {
-        public int totalPoints;
-        public int totalFishCaught;
-        public int bestCatchPoints;
+        Black,
+        Siamese,
+        White,
+        Blue,
+        Orange,
+        Calico,
     }
 
     public class LeaderboardEntryList
