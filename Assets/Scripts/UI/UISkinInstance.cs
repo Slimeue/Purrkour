@@ -15,13 +15,15 @@ public class UISkinInstance : MonoBehaviour
     {
         CatSkinData = catSkinData;
 
-        if (!_image)
+        if (_image)
             _image.sprite = catSkinData.sprite;
         
-        if(!_name)
+        if(_name)
             _name.text = catSkinData.name;
 
-        if (!cost)
-            cost.text = catSkinData.cost.ToString();
+        if (cost)
+        {
+            cost.text = catSkinData.catsType == Data.CatsType.Orange ? "Owned" :catSkinData.cost.ToString();
+        }
     }
 }

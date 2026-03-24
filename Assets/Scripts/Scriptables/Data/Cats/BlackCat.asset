@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f659a34337775804795fa5a6d87d8549, type: 3}
+  m_Name: BlackCat
+  m_EditorClassIdentifier: Assembly-CSharp::CatSkinData
+  catsType: 0
+  animatorOverrideController: {fileID: 22100000, guid: ebdf85f75e874164a9e4174ec1adf6b3, type: 2}
+  sprite: {fileID: -2559775460605376131, guid: 9800fa15916e0fb4a9b22eae439af6bd, type: 3}
+  cost: 350
