@@ -8,7 +8,7 @@ namespace Player
     {
         //add player data
         //that will include skins
-        
+
         private PlayerHealthComponent _playerHealthComponent;
         public PlayerInputHandler InputHandler { get; private set; }
         public CatSkinData SkinData { get; private set; }
@@ -26,7 +26,7 @@ namespace Player
             GameManager.Instance.OnRestartGame += ResetPlayer;
             _animator = GetComponentInChildren<Animator>();
             SkinManager.Instance.OnSwapSkin += SetCatSkinData;
-            
+
             SetCatSkinData(SkinManager.Instance.EquippedSkin);
         }
 
@@ -42,18 +42,16 @@ namespace Player
             _playerHealthComponent.Reset();
         }
 
-        public void SetCatSkinData(CatSkinData skinData)
+        private void SetCatSkinData(CatSkinData skinData)
         {
             SkinData = skinData;
             _spriteRenderer.sprite = SkinData.sprite;
             SetAnimatorOverride(skinData.animatorOverrideController);
         }
 
-        public void SetAnimatorOverride(AnimatorOverrideController animatorOverrideController)
+        private void SetAnimatorOverride(AnimatorOverrideController animatorOverrideController)
         {
             _animator.runtimeAnimatorController = animatorOverrideController;
         }
-        
-        
     }
 }
