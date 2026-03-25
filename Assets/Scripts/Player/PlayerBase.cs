@@ -13,6 +13,7 @@ namespace Player
         public PlayerInputHandler InputHandler { get; private set; }
         public CatSkinData SkinData { get; private set; }
         public Animator _animator;
+        public SpriteRenderer _spriteRenderer;
 
         private void Awake()
         {
@@ -23,8 +24,10 @@ namespace Player
         private void Start()
         {
             GameManager.Instance.OnRestartGame += ResetPlayer;
-            
             _animator = GetComponentInChildren<Animator>();
+            SkinManager.Instance.OnSwapSkin += SetCatSkinData;
+            
+            SetCatSkinData(SkinManager.Instance.EquippedSkin);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -42,6 +45,7 @@ namespace Player
         public void SetCatSkinData(CatSkinData skinData)
         {
             SkinData = skinData;
+            _spriteRenderer.sprite = SkinData.sprite;
             SetAnimatorOverride(skinData.animatorOverrideController);
         }
 

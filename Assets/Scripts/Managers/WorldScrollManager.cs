@@ -42,8 +42,10 @@ namespace Managers
             _elapsedTime += Time.deltaTime;
 
             // gradually increase from base to max over timeToMaxSpeed
+            
             float t = Mathf.Clamp01(_elapsedTime / timeToMaxSpeed);
             _currentSpeed = Mathf.Lerp(baseScrollSpeed, maxScrollSpeed, t);
+            DebuggerManager.Instance.DebugLog(_currentSpeed.ToString());
         }
 
         public void MoveObject(Transform obj)

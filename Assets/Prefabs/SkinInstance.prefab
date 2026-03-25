@@ -228,10 +228,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6746215623641106853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 145.3, y: -35.530678}
-  m_SizeDelta: {x: 290.6, y: 71.061356}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &393768915704792027
 CanvasRenderer:
@@ -508,10 +508,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6746215623641106853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 354.7, y: -35.530678}
-  m_SizeDelta: {x: 290.6, y: 71.061356}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8485549939864694707
 CanvasRenderer:
@@ -665,10 +665,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92a1c9e3ceff5c40b81052a6c7d584f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  CatSkinData: {fileID: 0}
-  _image: {fileID: 5257126000917330208}
-  _name: {fileID: 7475421186504630132}
-  cost: {fileID: 3847372052922834627}
+  image: {fileID: 5257126000917330208}
+  nameText: {fileID: 7475421186504630132}
+  costText: {fileID: 3847372052922834627}
+  buyButton: {fileID: 3899899666982495521}
+  buyButtonText: {fileID: 3485350017165937842}
 --- !u!1 &8089890999277350994
 GameObject:
   m_ObjectHideFlags: 0

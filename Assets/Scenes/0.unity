@@ -1364,6 +1364,58 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8018100396389980177, guid: 459df4405837c134d8f09b264d2de6b6, type: 3}
   m_PrefabInstance: {fileID: 176062333}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &486668827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 486668829}
+  - component: {fileID: 486668828}
+  m_Layer: 0
+  m_Name: SkinManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &486668828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486668827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312cfc77af2f4a70ba39cc120be16a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Managers.SkinManager
+  allSkins:
+  - {fileID: 11400000, guid: 3f96f5cf61a6a05449e739ae654e6b6b, type: 2}
+  - {fileID: 11400000, guid: 41c2368c231eb854aacc8286e9701712, type: 2}
+  - {fileID: 11400000, guid: e8fcd4693d7051f4095ad8dfaf75bd42, type: 2}
+  - {fileID: 11400000, guid: e6586bdf2a275254388bd305cf8a8fac, type: 2}
+  - {fileID: 11400000, guid: b3422eda04b0437439de8c6f95e743a1, type: 2}
+  - {fileID: 11400000, guid: 6608fbfc6b735ce41a085217f5ec2a97, type: 2}
+  defaultSkin: {fileID: 11400000, guid: e6586bdf2a275254388bd305cf8a8fac, type: 2}
+--- !u!4 &486668829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486668827}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &487731088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1973,7 +2025,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.9
+  m_fontSize: 44.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3986,6 +4038,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6608fbfc6b735ce41a085217f5ec2a97, type: 2}
   prefab: {fileID: 4221897849656837209, guid: f94e0dc261f71e341ae4fb25a7b0edc2, type: 3}
   rectListCont: {fileID: 1556755476}
+  skinList: []
 --- !u!1 &1072446474
 GameObject:
   m_ObjectHideFlags: 0
@@ -4194,8 +4247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Managers.WorldScrollManager
   baseScrollSpeed: 10
-  maxScrollSpeed: 15
-  timeToMaxSpeed: 120
+  maxScrollSpeed: 20
+  timeToMaxSpeed: 60
   isScrolling: 1
 --- !u!4 &1205156763
 Transform:
@@ -5191,7 +5244,7 @@ Animator:
   m_GameObject: {fileID: 1638215804}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 609dc5912b4d7cd48a0398e5cd480c7f, type: 2}
+  m_Controller: {fileID: 22100000, guid: d57f2844174be8044afb069e80a1d0dd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6993,7 +7046,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7420bc6e34948809a7c85465cf8d549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBase
-  _animator: {fileID: 0}
+  _animator: {fileID: 1638215807}
+  _spriteRenderer: {fileID: 1638215806}
 --- !u!1 &2130052094
 GameObject:
   m_ObjectHideFlags: 0
@@ -7648,6 +7702,7 @@ SceneRoots:
   - {fileID: 1787764749}
   - {fileID: 1205156763}
   - {fileID: 1407554358}
+  - {fileID: 486668829}
   - {fileID: 1683157207}
   - {fileID: 568941714}
   - {fileID: 509225395}

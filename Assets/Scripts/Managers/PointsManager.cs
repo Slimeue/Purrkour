@@ -58,6 +58,7 @@ namespace Managers
         {
             GameManager.Instance.OnEndGame += SavePoints;
             GameManager.Instance.OnRestartGame += ResetPoints;
+            SkinManager.Instance.OnBuySkin += SpendPoints;
         }
 
         public void AddPoints(FishData data, Transform worldTransform)
@@ -248,6 +249,13 @@ namespace Managers
             TotalPoints += CurrentPoints;
             PlayerPrefs.SetInt("TotalPoints", Mathf.CeilToInt(TotalPoints));
             LeaderboardManager.Instance.RecordRunScore(Mathf.CeilToInt(CurrentPoints));
+            RefreshPointsText();
+        }
+
+        private void SpendPoints(int amount)
+        {
+            TotalPoints -= amount;
+            PlayerPrefs.SetInt("TotalPoints", Mathf.CeilToInt(TotalPoints));
             RefreshPointsText();
         }
         
