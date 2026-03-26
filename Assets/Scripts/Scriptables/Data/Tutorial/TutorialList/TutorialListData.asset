@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695f39330a131b24cb73211b5f5af58a, type: 3}
+  m_Name: TutorialListData
+  m_EditorClassIdentifier: Assembly-CSharp::Scriptables.TutorialListData
+  title: Gameplay Mechanics
+  pages:
+  - {fileID: 11400000, guid: 382987d255cec4044b0c8d06df8a5bf0, type: 2}
+  - {fileID: 11400000, guid: a2077f4266fdfac42a23bd391783fb44, type: 2}
+  - {fileID: 11400000, guid: 16d19d3a1cbabac4387adfcfd85eece6, type: 2}
+  - {fileID: 11400000, guid: a35b6a68b2cc292469a29e90536c242f, type: 2}
+  - {fileID: 11400000, guid: d01b8b53c123bcc458ffbf86cd1a17a5, type: 2}
+  - {fileID: 11400000, guid: d600f2da4cc45b343b83e38fa046097f, type: 2}
+  - {fileID: 11400000, guid: 6d77d36a66c89af4badb7adbf59cc03f, type: 2}
+  - {fileID: 11400000, guid: 701dd7b47fa584f44a80c0d0e6fcd6b4, type: 2}
+  - {fileID: 11400000, guid: a3156522f8d21f148a514515d6f9bd64, type: 2}
+  - {fileID: 11400000, guid: 8a04e11a4d2b97448af50688b600d236, type: 2}

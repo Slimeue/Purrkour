@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89908a190054fd44eaa977af4daddbc7, type: 3}
+  m_Name: TP_5
+  m_EditorClassIdentifier: Assembly-CSharp::Scriptables.TutorialPageData
+  image: {fileID: -6366745817544795765, guid: 302b3b8866bb21d40b0c7939db68aa4d, type: 3}
+  description: Obstacles will appear as you run. Jump over them or you'll take a
+    hit and your run will end.
