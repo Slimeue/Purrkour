@@ -7,7 +7,8 @@ public static class Data
         MainMenu,
         Playing,
         Paused,
-        GameOver
+        GameOver,
+        Intro,
     }
 
     public enum FishRarity

@@ -100,8 +100,8 @@ namespace Managers
             PlatformInstance platform = context.Platform;
             
             float ySpawnPos = !context.Platform.CurrentPieceData.isCeiling ? 
-                    platform.transform.position.y + platform.Height * 0.5f + obstacleHeightOffset :
-                    platform.transform.position.y - platform.Height * 0.5f - obstacleHeightOffset;
+                    platform.transform.position.y + platform.Height * 0.5f + obstacleData.heightOffset:
+                    platform.transform.position.y - platform.Height * 0.5f - obstacleData.heightOffset;
             Vector3 spawnPosition = new Vector3(
                 centerX,
                 ySpawnPos,

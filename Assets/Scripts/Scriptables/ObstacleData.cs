@@ -14,6 +14,8 @@ namespace Scriptables
         [Tooltip("Damage dealt to player on collision.")]
         public int damage = 1;
 
+        public float heightOffset = 1;
+
         [Tooltip("How many slots this obstacle occupies.")]
         public int slotWidth = 1;
 

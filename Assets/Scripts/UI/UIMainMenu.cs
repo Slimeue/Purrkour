@@ -41,10 +41,18 @@ namespace UI
         private TutorialListData _selectedTutorial;
         private TutorialPageData _selectedTutorialPage;
         private int currentPage;
-        
+
 
         [Header("Shop UI")] [SerializeField] private Button shopButton;
         [SerializeField] private Button shopCloseButton;
+
+        [Header("Intro UI")] [SerializeField] private RectTransform introElements;
+        [SerializeField] private Image introElementImage;
+        [SerializeField] private List<Sprite> introElementSprites;
+
+        [SerializeField] private Button introNextPageButton;
+
+        private int _currentIntroPage;
 
         private void Awake()
         {
@@ -78,13 +86,15 @@ namespace UI
                 shopButton.onClick.AddListener(() => { UIShopElements.instance.SetStatus(true); });
             if (shopCloseButton != null)
                 shopCloseButton.onClick.AddListener(() => { UIShopElements.instance.SetStatus(false); });
-            
-            if(tutorialPageNextButton != null)
+
+            if (tutorialPageNextButton != null)
                 tutorialPageNextButton.onClick.AddListener(NextPage);
-            
-            if(tutorialPagePreviousButton != null)
+
+            if (tutorialPagePreviousButton != null)
                 tutorialPagePreviousButton.onClick.AddListener(PreviousPage);
-            
+
+            if (introNextPageButton != null)
+                introNextPageButton.onClick.AddListener(NextIntro);
         }
 
         public void SetStatus(bool status)
@@ -135,6 +145,9 @@ namespace UI
         private void SetAboutStatus(bool status)
         {
             aboutElements.gameObject.SetActive(status);
+            if (status) return;
+            tutorialPageCont.gameObject.SetActive(false);
+            tutorialListCont.gameObject.SetActive(true);
         }
 
         public void SelectTutorial(TutorialListData data)
@@ -142,12 +155,12 @@ namespace UI
             _selectedTutorial = data;
             if (_selectedTutorial == null || _selectedTutorial.pages.Count <= 0)
                 return;
-            
+
             tutorialPageCont.gameObject.SetActive(true);
             tutorialListCont.gameObject.SetActive(false);
 
             currentPage = 1;
-            SetPage(data.pages[ currentPage - 1 ]);
+            SetPage(data.pages[currentPage - 1]);
         }
 
         public void SetPage(TutorialPageData data)
@@ -155,8 +168,8 @@ namespace UI
             _selectedTutorialPage = data;
 
             tutorialPageCount.text = $"{currentPage} / {_selectedTutorial.pages.Count}";
-            
-            if(_selectedTutorialPage == null) return;
+
+            if (_selectedTutorialPage == null) return;
             tutorialPageImage.sprite = _selectedTutorialPage.image;
             tutorialPageText.text = _selectedTutorialPage.description;
         }
@@ -166,7 +179,7 @@ namespace UI
             currentPage++;
             if (currentPage > _selectedTutorial.pages.Count)
                 currentPage = 1;
-            
+
             SetPage(_selectedTutorial.pages[currentPage - 1]);
         }
 
@@ -175,10 +188,38 @@ namespace UI
             currentPage--;
             if (currentPage <= 0)
                 currentPage = _selectedTutorial.pages.Count;
-            
+
             SetPage(_selectedTutorial.pages[currentPage - 1]);
         }
-        
-        
+
+        public void StartIntro()
+        {
+            _currentIntroPage = 1;
+            introElements.gameObject.SetActive(true);
+            SetIntroPage();
+        }
+
+        public void StopIntro()
+        {
+            introElements.gameObject.SetActive(false);
+            PlayerPrefs.SetInt("isIntroDone", 1);
+        }
+
+        private void SetIntroPage()
+        {
+            introElementImage.sprite = introElementSprites[_currentIntroPage - 1];
+        }
+
+        public void NextIntro()
+        {
+            _currentIntroPage++;
+            if (_currentIntroPage > introElementSprites.Count)
+            {
+                GameManager.Instance.GoToMainMenu();
+                return;
+            }
+
+            SetIntroPage();
+        }
     }
 }

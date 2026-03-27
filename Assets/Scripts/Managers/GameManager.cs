@@ -14,20 +14,24 @@ namespace Managers
         public GameContext GameContext { get; private set; }
 
         public Data.GameState CurrentGameState => GameContext.gameState;
-        
+
         public static GameManager Instance { get; private set; }
 
         private MainMenuState MainMenuState { get; set; }
         private PlayingState PlayingState { get; set; }
         private GameOverState GameOverState { get; set; }
+        private IntroState IntroState { get; set; }
 
         public delegate void EndGame();
+
         public delegate void RestartGame();
+
         public delegate void ReturnToMainMenu();
+
         public event EndGame OnEndGame;
         public event RestartGame OnRestartGame;
         public event ReturnToMainMenu OnReturnToMainMenu;
-        
+
         private void Awake()
         {
             if (Instance != null)
@@ -40,17 +44,17 @@ namespace Managers
             GameContext = new GameContext
             {
                 // Initialize any shared data or references here
-                gameManager =  this,
+                gameManager = this,
                 uiManager = FindAnyObjectByType<UIManager>(),
                 playerBase = FindAnyObjectByType<PlayerBase>()
             };
-            
+
             _stateMachine = new StateMachine<GameContext>(GameContext);
-            
+
             MainMenuState = new MainMenuState();
             PlayingState = new PlayingState();
             GameOverState = new GameOverState();
-
+            IntroState = new IntroState();
         }
 
         private void Start()
@@ -58,6 +62,16 @@ namespace Managers
             OnReturnToMainMenu += PointsManager.Instance.GetSavedPoints;
             OnReturnToMainMenu += LeaderboardManager.Instance.LoadLeaderboard;
             OnReturnToMainMenu += UIMainMenu.Instance.InitializeLeaderboard;
+
+            var isIntroDone = PlayerPrefs.GetInt("isIntroDone", 0) == 1;
+
+            if (!isIntroDone)
+            {
+                GoToIntro();
+                return;
+            }
+
+
             GoToMainMenu();
         }
 
@@ -65,7 +79,7 @@ namespace Managers
         {
             _stateMachine.Update();
         }
-        
+
         public void StartGame()
         {
             OnRestartGame?.Invoke();
@@ -79,12 +93,15 @@ namespace Managers
             _stateMachine.ChangeState(MainMenuState);
         }
 
+        public void GoToIntro()
+        {
+            _stateMachine.ChangeState(IntroState);
+        }
+
         public void GameOver()
         {
-            _stateMachine.ChangeState(GameOverState);   
+            _stateMachine.ChangeState(GameOverState);
             OnEndGame?.Invoke();
-        } 
-
-
+        }
     }
 }

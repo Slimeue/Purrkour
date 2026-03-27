@@ -4,25 +4,21 @@ using UI;
 
 namespace State.States
 {
-    public class MainMenuState : IState<GameContext>
+    public class IntroState : IState<GameContext>
     {
         public void OnEnter(GameContext context)
         {
-            UIMainMenu.Instance.SetStatus(true);
             WorldScrollManager.Instance.StopScrolling();
             context.playerBase.InputHandler.DisablePlayerInputHandler();
-            
-            
-            
-            context.gameState = Data.GameState.MainMenu;
+            context.gameState = Data.GameState.Intro;
+            UIMainMenu.Instance.StartIntro();
         }
 
-        public void OnUpdate(GameContext context)
-        { }
+        public void OnUpdate(GameContext context) { }
 
         public void OnExit(GameContext context)
         {
-            UIMainMenu.Instance.SetStatus(false);
+            UIMainMenu.Instance.StopIntro();
         }
     }
 }

@@ -704,7 +704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &54229243
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4411,7 +4411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &896702184
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4760,7 +4760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &943231678
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5225,6 +5225,16 @@ MonoBehaviour:
   tutorialPagePreviousButton: {fileID: 1532633547}
   shopButton: {fileID: 230650023}
   shopCloseButton: {fileID: 698910009}
+  introElements: {fileID: 54229243}
+  introElementImage: {fileID: 2072086327}
+  introElementSprites:
+  - {fileID: 21300000, guid: bd272a5f6d8732143a38a2bf525feb42, type: 3}
+  - {fileID: 21300000, guid: b9d092e79837f4347bc33dd581975eda, type: 3}
+  - {fileID: 21300000, guid: d1c0c318267175b42b2abef1d5c82781, type: 3}
+  - {fileID: 21300000, guid: 4ec9e9f531d5bd94288da0350e86a47a, type: 3}
+  - {fileID: 21300000, guid: 2a65dbc8670b59747a1c5815f5af3cf7, type: 3}
+  - {fileID: 21300000, guid: 12110d024e8075c489c0ad041f4e294c, type: 3}
+  introNextPageButton: {fileID: 726263647}
 --- !u!1 &1134610169
 GameObject:
   m_ObjectHideFlags: 0
@@ -5271,8 +5281,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Managers.ObstacleSpawnManager
   obstacleGroundData:
   - {fileID: 11400000, guid: ea3d3a5208fd51248a7e6061b4cf592f, type: 2}
-  obstacleCeilingGroundData:
   - {fileID: 11400000, guid: d671866ba5b46ba47960be307b6b96be, type: 2}
+  obstacleCeilingGroundData: []
   obstacleParent: {fileID: 0}
   obstacleHeightOffset: 1
   obstacleSectionChance: 0.55

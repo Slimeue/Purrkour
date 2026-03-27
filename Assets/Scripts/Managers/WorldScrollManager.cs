@@ -48,10 +48,10 @@ namespace Managers
             DebuggerManager.Instance.DebugLog(_currentSpeed.ToString());
         }
 
-        public void MoveObject(Transform obj)
+        public void MoveObject(Transform obj, float speedMultiplier = 1f)
         {
             if (obj == null || !isScrolling) return;
-            obj.Translate(Vector3.left * ScrollSpeed * Time.deltaTime);
+            obj.Translate(Vector3.left * (ScrollSpeed * speedMultiplier) * Time.deltaTime);
         }
 
         public void ResetSpeed()

@@ -34,7 +34,7 @@ namespace Obstacles
             if (WorldScrollManager.Instance == null)
                 return;
             
-            WorldScrollManager.Instance.MoveObject(transform);
+            WorldScrollManager.Instance.MoveObject(transform, speedMultiplier);
 
             if (_mainCamera == null)
                 return;
