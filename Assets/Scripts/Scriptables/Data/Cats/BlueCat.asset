@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f659a34337775804795fa5a6d87d8549, type: 3}
   m_Name: BlueCat
   m_EditorClassIdentifier: Assembly-CSharp::CatSkinData
-  catsType: 3
+  catsType: 4
   animatorOverrideController: {fileID: 22100000, guid: d57f2844174be8044afb069e80a1d0dd, type: 2}
   sprite: {fileID: 9095743816153090379, guid: 5f958d44f9c99eb4baf395192c18ae1b, type: 3}
   cost: 450

@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d450eb1c73f54ca7a9841001c557ac0e, type: 3}
+  m_Name: SoundLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::Scriptables.SoundLibrary
+  _entries:
+  - Id: 0
+    Clip: {fileID: 8300000, guid: 1d8d0c788c18a9445b616f7b28e6c38e, type: 3}
+    Category: 0
+    Priority: 1
+    Volume: 0.75
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 0
+  - Id: 1
+    Clip: {fileID: 8300000, guid: 86849257b1b8aaa49ad1829f5e4acbf3, type: 3}
+    Category: 0
+    Priority: 1
+    Volume: 0.75
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 0
+  - Id: 8
+    Clip: {fileID: 8300000, guid: ec57e3dfd61f0f64298d01f5ee27b216, type: 3}
+    Category: 2
+    Priority: 1
+    Volume: 1
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 1
+  - Id: 9
+    Clip: {fileID: 8300000, guid: 532917cc271d1844b9094642de19d25a, type: 3}
+    Category: 4
+    Priority: 1
+    Volume: 0.5
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 1
+  - Id: 5
+    Clip: {fileID: 8300000, guid: 63ec1d0157a6a6949b41b8565c4ac58e, type: 3}
+    Category: 4
+    Priority: 1
+    Volume: 0.5
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 1
+  - Id: 7
+    Clip: {fileID: 8300000, guid: 5f97bbd1440527c4c88a1c6df5169c19, type: 3}
+    Category: 0
+    Priority: 1
+    Volume: 0.5
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 0
+  - Id: 4
+    Clip: {fileID: 8300000, guid: 6370443300b919349b1615e0fb822a33, type: 3}
+    Category: 4
+    Priority: 1
+    Volume: 0.5
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 1
+  - Id: 3
+    Clip: {fileID: 8300000, guid: 0551301f29770ed439a70fd7524d64aa, type: 3}
+    Category: 0
+    Priority: 1
+    Volume: 1
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 0
+  - Id: 10
+    Clip: {fileID: 8300000, guid: 11645b414eb2d684ca16888f1f01342e, type: 3}
+    Category: 0
+    Priority: 1
+    Volume: 0.5
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 1
+  - Id: 6
+    Clip: {fileID: 8300000, guid: 5c1287522d9bb6e41ab603245c457778, type: 3}
+    Category: 2
+    Priority: 1
+    Volume: 1
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 0
+  - Id: 11
+    Clip: {fileID: 8300000, guid: 706b1bb53c29cf84aab1bade68c8c592, type: 3}
+    Category: 2
+    Priority: 1
+    Volume: 1
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 0
+  - Id: 2
+    Clip: {fileID: 8300000, guid: 59310e15426c22541af73480067459df, type: 3}
+    Category: 0
+    Priority: 1
+    Volume: 1
+    Pitch: 1
+    MaxAge: 5
+    isLoop: 0

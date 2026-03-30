@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f659a34337775804795fa5a6d87d8549, type: 3}
   m_Name: OrangeCat
   m_EditorClassIdentifier: Assembly-CSharp::CatSkinData
-  catsType: 4
+  catsType: 0
   animatorOverrideController: {fileID: 22100000, guid: cf00bea01880f6a4897fd526975ff615, type: 2}
   sprite: {fileID: -8664014639538492174, guid: ddd90dc13db4fce4aae62a30173c13b3, type: 3}
   cost: 0

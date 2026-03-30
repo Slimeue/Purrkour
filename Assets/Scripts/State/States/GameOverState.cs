@@ -11,6 +11,8 @@ namespace State.States
             context.gameState = Data.GameState.GameOver;
             context.playerBase.InputHandler.DisablePlayerInputHandler();
             
+            AudioManager.Instance.Request(Data.SoundId.GameOver);
+            
             WorldScrollManager.Instance.StopScrolling();
             
             UIGameOver.Instance.ShowGameOver(true);

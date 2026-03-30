@@ -12,6 +12,7 @@ namespace State.States
             context.playerBase.InputHandler.DisablePlayerInputHandler();
             context.gameState = Data.GameState.Intro;
             UIMainMenu.Instance.StartIntro();
+            AudioManager.Instance.PlayBgm(Data.SoundId.Intro);
         }
 
         public void OnUpdate(GameContext context) { }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f659a34337775804795fa5a6d87d8549, type: 3}
   m_Name: SiameseCat
   m_EditorClassIdentifier: Assembly-CSharp::CatSkinData
-  catsType: 1
+  catsType: 2
   animatorOverrideController: {fileID: 22100000, guid: 120ee7e70eae9e542b5eb61a87af240e, type: 2}
   sprite: {fileID: -3551953783697487415, guid: 32f8b147b2caf0447af81b88b68649ed, type: 3}
   cost: 500

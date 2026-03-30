@@ -55,6 +55,17 @@ namespace Fish
             if (!other.CompareTag("Player")) return;
 
             FishSpawnManager.Instance.activeFishInstances.Remove(this);
+
+            switch (fishData.fishRarity)
+            {
+                case Data.FishRarity.Common:
+                    AudioManager.Instance.Request(Data.SoundId.CoinCollectNormal);
+                    break;
+                case Data.FishRarity.Rare:
+                    AudioManager.Instance.Request(Data.SoundId.CoinCollectRare);
+                    break;
+            }
+            
             PointsManager.Instance.AddPoints(fishData, other.transform);
             GenericObjectPool<FishInstance>.Release(this);
         }

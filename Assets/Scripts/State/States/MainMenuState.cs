@@ -12,6 +12,7 @@ namespace State.States
             WorldScrollManager.Instance.StopScrolling();
             context.playerBase.InputHandler.DisablePlayerInputHandler();
             
+            AudioManager.Instance.PlayBgm(Data.SoundId.MainMenu);
             
             
             context.gameState = Data.GameState.MainMenu;

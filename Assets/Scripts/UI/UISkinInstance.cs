@@ -46,6 +46,8 @@ public class UISkinInstance : MonoBehaviour
     {
         var sm = SkinManager.Instance; // cache — avoids repeated property lookup
         var isUnlocked = sm.IsUnlocked(CatSkinData);
+        
+        AudioManager.Instance.Request(Data.SoundId.CharacterChoose);
 
         if (isUnlocked)
         {

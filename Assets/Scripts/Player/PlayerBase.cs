@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Managers;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Player
         public CatSkinData SkinData { get; private set; }
         public Animator _animator;
         public SpriteRenderer _spriteRenderer;
-
+        
         private void Awake()
         {
             _playerHealthComponent = GetComponent<PlayerHealthComponent>();
@@ -32,8 +33,16 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Death")) return;
-            _playerHealthComponent.TakeDamage(_playerHealthComponent.CurrentHealth);
+            if (other.CompareTag("Death"))
+            {
+                AudioManager.Instance.Request(Data.SoundId.PlayerDeath);
+                _playerHealthComponent.TakeDamage(_playerHealthComponent.CurrentHealth);
+            }
+
+            if (!other.CompareTag("Obstacle")) return;
+            _animator.SetTrigger("Hit");
+            transform.DOMoveX(transform.position.x - 2f, 1f)
+                .SetEase(Ease.OutSine);
         }
 
         private void ResetPlayer()

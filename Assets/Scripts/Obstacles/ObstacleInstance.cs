@@ -56,6 +56,8 @@ namespace Obstacles
             var killable = other.GetComponentInParent<IKillable>();
 
             killable?.TakeDamage(currentData.damage);
+            
+            AudioManager.Instance.Request(Data.SoundId.PlayerDeath);
 
             ObstacleSpawnManager.Instance.obstacleInstances.Remove(this);
             GenericObjectPool<ObstacleInstance>.Release(this);

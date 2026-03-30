@@ -131,6 +131,8 @@ namespace Player
 
             _jumpBufferTimer = 0f;
             _coyoteTimer = 0f;
+            
+            AudioManager.Instance.Request(Data.SoundId.PlayerJump);
 
             if (showDebugLogs) Debug.Log("Jump executed");
         }

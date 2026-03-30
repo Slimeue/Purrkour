@@ -83,9 +83,17 @@ namespace UI
                 closeAboutButton.onClick.AddListener(() => { SetAboutStatus(false); });
 
             if (shopButton != null)
-                shopButton.onClick.AddListener(() => { UIShopElements.instance.SetStatus(true); });
+                shopButton.onClick.AddListener(() =>
+                {
+                    UIShopElements.instance.SetStatus(true);
+                    AudioManager.Instance.PlayBgm(Data.SoundId.CharacterSelection);
+                });
             if (shopCloseButton != null)
-                shopCloseButton.onClick.AddListener(() => { UIShopElements.instance.SetStatus(false); });
+                shopCloseButton.onClick.AddListener(() =>
+                {
+                    UIShopElements.instance.SetStatus(false);
+                    AudioManager.Instance.PlayBgm(Data.SoundId.MainMenu);
+                });
 
             if (tutorialPageNextButton != null)
                 tutorialPageNextButton.onClick.AddListener(NextPage);
@@ -146,6 +154,8 @@ namespace UI
         {
             aboutElements.gameObject.SetActive(status);
             if (status) return;
+            
+            AudioManager.Instance.PlayBgm(Data.SoundId.MainMenu);
             tutorialPageCont.gameObject.SetActive(false);
             tutorialListCont.gameObject.SetActive(true);
         }
@@ -156,6 +166,8 @@ namespace UI
             if (_selectedTutorial == null || _selectedTutorial.pages.Count <= 0)
                 return;
 
+            AudioManager.Instance.PlayBgm(Data.SoundId.Tutorial);
+            
             tutorialPageCont.gameObject.SetActive(true);
             tutorialListCont.gameObject.SetActive(false);
 

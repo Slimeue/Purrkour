@@ -17,6 +17,8 @@ namespace State.States
             UIGameMain.Instance.SetStatusElementsActive(true);
             PlatformGenerator.Instance.InitializeGeneration();
             
+            AudioManager.Instance.PlayBgm(Data.SoundId.GameScene);
+            
             context.playerBase.InputHandler.EnablePlayerInputHandler();
             context.gameState = Data.GameState.Playing;
         }
