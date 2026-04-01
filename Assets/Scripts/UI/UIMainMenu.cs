@@ -11,8 +11,6 @@ namespace UI
 {
     public class UIMainMenu : MonoBehaviour
     {
-        public static UIMainMenu Instance { get; private set; }
-
         [SerializeField] private Transform elements;
 
         [SerializeField] private Button startButton;
@@ -21,7 +19,6 @@ namespace UI
         private RectTransform leaderBoardCont;
 
         [SerializeField] private BestScoreInstance _scoreInstance;
-        private List<BestScoreInstance> _scoreInstances = new List<BestScoreInstance>();
 
         [Header("About UI")] [SerializeField] private AboutElementInstance aboutElementPrefab;
         [SerializeField] private Button aboutButton;
@@ -38,9 +35,6 @@ namespace UI
         [SerializeField] private TextMeshProUGUI tutorialPageCount;
         [SerializeField] private Button tutorialPageNextButton;
         [SerializeField] private Button tutorialPagePreviousButton;
-        private TutorialListData _selectedTutorial;
-        private TutorialPageData _selectedTutorialPage;
-        private int currentPage;
 
 
         [Header("Shop UI")] [SerializeField] private Button shopButton;
@@ -52,7 +46,16 @@ namespace UI
 
         [SerializeField] private Button introNextPageButton;
 
+        [Header("Sound Settings")] [SerializeField]
+        private Button soundSettingsButton;
+
         private int _currentIntroPage;
+        private readonly List<BestScoreInstance> _scoreInstances = new();
+        private TutorialListData _selectedTutorial;
+        private TutorialPageData _selectedTutorialPage;
+        private int currentPage;
+        public static UIMainMenu Instance { get; private set; }
+
 
         private void Awake()
         {
@@ -67,10 +70,7 @@ namespace UI
 
         private void Start()
         {
-            if (startButton != null)
-            {
-                startButton.onClick.AddListener(StartButtonClicked);
-            }
+            if (startButton != null) startButton.onClick.AddListener(StartButtonClicked);
 
             InitializeAbout();
 
@@ -103,7 +103,11 @@ namespace UI
 
             if (introNextPageButton != null)
                 introNextPageButton.onClick.AddListener(NextIntro);
+
+            if (soundSettingsButton != null)
+                soundSettingsButton.onClick.AddListener(OpenSoundSettings);
         }
+
 
         public void SetStatus(bool status)
         {
@@ -120,10 +124,7 @@ namespace UI
             if (leaderBoardCont == null || _scoreInstance == null) return;
 
             // Clear existing instances
-            foreach (var instance in _scoreInstances)
-            {
-                GenericObjectPool<BestScoreInstance>.Release(instance);
-            }
+            foreach (var instance in _scoreInstances) GenericObjectPool<BestScoreInstance>.Release(instance);
 
             _scoreInstances.Clear();
 
@@ -154,7 +155,7 @@ namespace UI
         {
             aboutElements.gameObject.SetActive(status);
             if (status) return;
-            
+
             AudioManager.Instance.PlayBgm(Data.SoundId.MainMenu);
             tutorialPageCont.gameObject.SetActive(false);
             tutorialListCont.gameObject.SetActive(true);
@@ -167,7 +168,7 @@ namespace UI
                 return;
 
             AudioManager.Instance.PlayBgm(Data.SoundId.Tutorial);
-            
+
             tutorialPageCont.gameObject.SetActive(true);
             tutorialListCont.gameObject.SetActive(false);
 
@@ -232,6 +233,11 @@ namespace UI
             }
 
             SetIntroPage();
+        }
+
+        public void OpenSoundSettings()
+        {
+            UISound.Instance.SetStatus(true);
         }
     }
 }

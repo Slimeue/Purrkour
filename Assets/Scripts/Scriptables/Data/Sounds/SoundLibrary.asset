@@ -31,7 +31,7 @@ MonoBehaviour:
     isLoop: 0
   - Id: 8
     Clip: {fileID: 8300000, guid: ec57e3dfd61f0f64298d01f5ee27b216, type: 3}
-    Category: 2
+    Category: 4
     Priority: 1
     Volume: 1
     Pitch: 1
