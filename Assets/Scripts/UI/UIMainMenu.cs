@@ -53,6 +53,7 @@ namespace UI
         private readonly List<BestScoreInstance> _scoreInstances = new();
         private TutorialListData _selectedTutorial;
         private TutorialPageData _selectedTutorialPage;
+        public TutorialListData _defaultTutorial;
         private int currentPage;
         public static UIMainMenu Instance { get; private set; }
 
@@ -171,6 +172,8 @@ namespace UI
 
             tutorialPageCont.gameObject.SetActive(true);
             tutorialListCont.gameObject.SetActive(false);
+            
+            PlayerPrefs.SetInt($"{data.title}", 1);
 
             currentPage = 1;
             SetPage(data.pages[currentPage - 1]);
@@ -191,7 +194,9 @@ namespace UI
         {
             currentPage++;
             if (currentPage > _selectedTutorial.pages.Count)
+            {
                 currentPage = 1;
+            }
 
             SetPage(_selectedTutorial.pages[currentPage - 1]);
         }
@@ -229,6 +234,8 @@ namespace UI
             if (_currentIntroPage > introElementSprites.Count)
             {
                 GameManager.Instance.GoToMainMenu();
+                
+
                 return;
             }
 
@@ -238,6 +245,12 @@ namespace UI
         public void OpenSoundSettings()
         {
             UISound.Instance.SetStatus(true);
+        }
+
+        public void QuickTutorial()
+        {
+            SetAboutStatus(true);
+            SelectTutorial(_defaultTutorial);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Managers;
 using S_Machine;
 using UI;
+using UnityEngine;
 
 namespace State.States
 {
@@ -12,8 +13,15 @@ namespace State.States
             WorldScrollManager.Instance.StopScrolling();
             context.playerBase.InputHandler.DisablePlayerInputHandler();
             
-            AudioManager.Instance.PlayBgm(Data.SoundId.MainMenu);
             
+            if (PlayerPrefs.GetInt($"{UIMainMenu.Instance._defaultTutorial.title}", 0) == 0)
+            {
+                UIMainMenu.Instance.QuickTutorial();
+            }
+            else
+            {
+                AudioManager.Instance.PlayBgm(Data.SoundId.MainMenu);
+            }
             
             context.gameState = Data.GameState.MainMenu;
         }
