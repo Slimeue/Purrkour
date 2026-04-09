@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CatSkinData
   catsType: 1
   animatorOverrideController: {fileID: 22100000, guid: ebdf85f75e874164a9e4174ec1adf6b3, type: 2}
-  sprite: {fileID: -2559775460605376131, guid: 9800fa15916e0fb4a9b22eae439af6bd, type: 3}
+  sprite: {fileID: -2559775460605376131, guid: 9b7dbb919159e14439b041101611f9b5, type: 3}
   cost: 350

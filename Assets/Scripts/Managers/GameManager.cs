@@ -1,5 +1,4 @@
-﻿using System;
-using Player;
+﻿using Player;
 using S_Machine;
 using State;
 using State.States;
@@ -10,6 +9,12 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
+        public delegate void EndGame();
+
+        public delegate void RestartGame();
+
+        public delegate void ReturnToMainMenu();
+
         private StateMachine<GameContext> _stateMachine;
         public GameContext GameContext { get; private set; }
 
@@ -22,22 +27,9 @@ namespace Managers
         private GameOverState GameOverState { get; set; }
         private IntroState IntroState { get; set; }
 
-        public delegate void EndGame();
-
-        public delegate void RestartGame();
-
-        public delegate void ReturnToMainMenu();
-
-        public event EndGame OnEndGame;
-        public event RestartGame OnRestartGame;
-        public event ReturnToMainMenu OnReturnToMainMenu;
-
         private void Awake()
         {
-            if (Instance != null)
-            {
-                return;
-            }
+            if (Instance != null) return;
 
             Instance = this;
 
@@ -65,20 +57,21 @@ namespace Managers
 
             var isIntroDone = PlayerPrefs.GetInt("isIntroDone", 0) == 1;
 
-            if (!isIntroDone)
-            {
-                GoToIntro();
-                return;
-            }
+            GoToIntro();
+            // return;
 
 
-            GoToMainMenu();
+            // GoToMainMenu();
         }
 
         private void Update()
         {
             _stateMachine.Update();
         }
+
+        public event EndGame OnEndGame;
+        public event RestartGame OnRestartGame;
+        public event ReturnToMainMenu OnReturnToMainMenu;
 
         public void StartGame()
         {

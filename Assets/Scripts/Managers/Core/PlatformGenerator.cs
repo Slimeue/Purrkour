@@ -192,7 +192,8 @@ namespace Core
                     sectionRightEdge = Mathf.Max(sectionRightEdge, newPlatformInstance.RightEdge);
 
                 currentLeftEdgeX = newPlatformInstance.RightEdge;
-                SpawnManager.Instance.HandleSectionSpawn(newPlatformInstance, _previousPlatform);
+                if (!isFirst)
+                    SpawnManager.Instance.HandleSectionSpawn(newPlatformInstance, _previousPlatform);
                 _previousPlatform = newPlatformInstance;
             }
 
