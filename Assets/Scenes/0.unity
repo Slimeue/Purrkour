@@ -6178,6 +6178,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 12110d024e8075c489c0ad041f4e294c, type: 3}
   introNextPageButton: {fileID: 726263647}
   soundSettingsButton: {fileID: 21737142}
+  _defaultTutorial: {fileID: 11400000, guid: 6eadeac19dbf2814c84a618b899b42d6, type: 2}
 --- !u!1 &1134610169
 GameObject:
   m_ObjectHideFlags: 0
