@@ -37,6 +37,7 @@ namespace Core
         private Camera _mainCamera;
 
         private PlatformInstance _previousPlatform;
+        bool isFirst = true;
 
         private void Awake()
         {
@@ -104,14 +105,14 @@ namespace Core
         {
             _lastPlatformY = startY;
 
-            for (var i = 0; i < initialSpawnCount; i++) SpawnNextPlatformSection(i == 0);
+            for (var i = 0; i < initialSpawnCount; i++) SpawnNextPlatformSection(i <= 1);
         }
 
         private void GenerateAheadIfNeeded()
         {
             var targetRightX = GetCameraRightEdgeX() + generateAheadDistance;
 
-            while (GetRightmostProgressionEdge() < targetRightX) SpawnNextPlatformSection(false);
+            while (GetRightmostProgressionEdge() < targetRightX) SpawnNextPlatformSection(isFirst);
         }
 
         private void CleanupOldPlatforms()
@@ -139,6 +140,8 @@ namespace Core
         private void SpawnNextPlatformSection(bool isFirst)
         {
             var chosenData = isFirst ? platformDatas[0] : GetWeightRandomPlatformData();
+
+            this.isFirst = false;
 
             if (!IsValidPlatformData(chosenData))
             {

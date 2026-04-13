@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FishType2
   m_EditorClassIdentifier: Assembly-CSharp::Scriptables.FishData
   prefab: {fileID: 1366194877362764471, guid: 1cb8f8b6627b3b144a3dfc6edb5b4958, type: 3}
-  sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  sprite: {fileID: -4602432090032664469, guid: fbd5a63724a054e4a8356c441dbd5f52, type: 3}
   fishRarity: 2
   pointsValue: 0
   spawnWeight: 0

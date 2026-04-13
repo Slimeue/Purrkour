@@ -10,18 +10,20 @@ namespace Player
         private Vector2 _moveInput;
         private bool _jumpPressed;
         private bool _jumpHeld;
+        private bool _crouchHeld;
         private bool _attackPressed;
 
         public Vector2 MoveInput => _moveInput;
         public bool JumpPressed => _jumpPressed;
         public bool JumpHeld => _jumpHeld;
+        public  bool CrouchHeld => _crouchHeld;
 
         private void Awake()
         {
             _inputActions = new InputSystemActions();
             _inputActions.Player.SetCallbacks(this);
         }
-        
+
         public void EnablePlayerInputHandler() => _inputActions.Player.Enable();
         public void DisablePlayerInputHandler() => _inputActions.Player.Disable();
 
@@ -34,7 +36,7 @@ namespace Player
         // {
         //     _inputActions.Player.Disable();
         // }
-        
+
 
         private void OnDestroy()
         {
@@ -59,6 +61,15 @@ namespace Player
 
         public void OnCrouch(InputAction.CallbackContext context)
         {
+            if (context.started || context.performed)
+            {
+                _crouchHeld = true;
+            }
+
+            if (context.canceled)
+            {
+                _crouchHeld = false;
+            }
         }
 
         public void OnJump(InputAction.CallbackContext context)
